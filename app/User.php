@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Plans;
 
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -28,7 +28,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['first_name', 'last_name', 'email', 'password', 'partner_name', 'city', 'phone', 'cell', 'position'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -36,4 +36,36 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        if (is_string($role)) {
+            return $this->roles->contains('name', $role);
+        }
+
+        return !! $role->intersect($this->roles)->count();
+    }
+
+    /**
+     *
+     * @param $user
+     * @return boolean
+     */
+    public function ownedBy($user)
+    {
+        return ($user == \Auth::id());
+    }
 }
+

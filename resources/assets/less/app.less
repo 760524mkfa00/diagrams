@@ -1,0 +1,105 @@
+@import "bootstrap/bootstrap";
+@import "fontawesome/font-awesome";
+@import "main";
+@import "plugins_less";
+@import "responsive";
+
+.ui-datepicker {
+  width: 23em;
+}
+
+.widget.box .widget-header {
+  line-height: 36px;
+}
+
+/* css for timepicker */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { float: left; clear:left; padding: 0 0 0 5px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 45%; }
+
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
+.ui-timepicker-rtl{ direction: rtl; }
+.ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
+.ui-timepicker-rtl dl dt{ float: right; clear: right; }
+.ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+
+.navbar > .container { width: 100%; margin-top: 5px;}
+#container.fixed-header { margin-top: 59px; }
+
+a.green {
+  color: green;
+  font-weight: bold;
+}
+
+.table > tbody > tr > th.no-line, .table > tbody > tr > td.no-line
+{
+  border-top: none;
+}
+
+
+.flash_message {
+  background: none repeat scroll 0 0 #193654;
+  border: medium none;
+  border-radius: 0;
+  bottom: 0;
+  box-shadow: 0 0 15px #999;
+  color: #fff;
+  min-width: 380px;
+  padding: 18px 40px;
+  position: fixed;
+  right: 20px;
+  text-align: center;
+  z-index: 10000;
+}
+
+.assign {padding: 20px 10px; }
+
+.form-control {
+  color: #555555;}
+
+/*
+Back to top button
+*/
+#back-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+}
+#back-top a {
+  width: 108px;
+  display: block;
+  text-align: center;
+  font: 11px/100% Arial, Helvetica, sans-serif;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: #bbb;
+  /* background color transition */
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  transition: 1s;
+}
+#back-top a:hover {
+  color: #000;
+}
+/* arrow icon (span tag) */
+#back-top span {
+  width: 108px;
+  height: 108px;
+  display: block;
+  margin-bottom: 7px;
+  background: #ddd url(http://myfieldtrip.xyz/img/up-arrow.png) no-repeat center center;
+  /* rounded corners */
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  /* background color transition */
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  transition: 1s;
+}
+#back-top a:hover span {
+  background-color: #777;
+}

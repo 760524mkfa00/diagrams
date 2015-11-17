@@ -26,7 +26,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => 'http://plans.dev',
 
     /*
     |--------------------------------------------------------------------------
@@ -140,11 +140,12 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-
+        Plans\Providers\AppServiceProvider::class,
+        Plans\Providers\AuthServiceProvider::class,
+        Plans\Providers\EventServiceProvider::class,
+        Plans\Providers\RouteServiceProvider::class,
+        Plans\Providers\RepositoryServiceProvider::class,
+        Plans\Providers\MenuServiceProvider::class,
     ],
 
     /*
