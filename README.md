@@ -1,2 +1,0 @@
-# plans
-Building floor plans
