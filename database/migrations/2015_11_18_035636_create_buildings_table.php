@@ -14,12 +14,13 @@ class CreateBuildingsTable extends Migration
     {
         Schema::create('buildings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('building_name');
             $table->string('street');
             $table->string('town', 40);
             $table->string('postal', 10);
             $table->string('province', 40);
             $table->string('country', 40);
+            $table->string('building_type', 40);
             $table->text('description');
             $table->string('telephone');
             $table->timestamps();

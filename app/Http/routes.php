@@ -32,3 +32,5 @@ $router->group(['middleware' => 'auth'], function() {
 
 //move these to secure area later
 Route::resource('buildings', 'BuildingsController');
+Route::get('buildings/{building_name}/{street}', 'BuildingsController@show');
+

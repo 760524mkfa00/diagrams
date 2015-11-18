@@ -24,7 +24,7 @@ class BuildingRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
+            'building_name' => 'required',
             'street' => 'required',
             'town' => 'required',
             'postal' => 'required',
@@ -32,6 +32,7 @@ class BuildingRequest extends Request
             'country' => 'required',
             'telephone' => 'required',
             'description' => 'required',
+            'building_type' => 'required',
         ];
     }
 }

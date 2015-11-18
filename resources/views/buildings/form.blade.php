@@ -3,8 +3,8 @@
 {{ csrf_field() }}
 
 <div class="form-group">
-    <label for="name">Name:</label>
-    <input type="text" name="name" id="name" class="form-control" value="{{ old('name') }}" required>
+    <label for="building_name">Name:</label>
+    <input type="text" name="building_name" id="building_name" class="form-control" value="{{ old('building_name') }}" required>
 </div>
 <div class="form-group">
     <label for="street">Street:</label>
@@ -34,7 +34,10 @@
     <label for="telephone">Telephone:</label>
     <input type="text" name="telephone" id="telephone" class="form-control" value="{{ old('telephone') }}" required>
 </div>
-
+<div class="form-group">
+    <label for="building_type">Building Type:</label>
+    <input type="text" name="building_type" id="building_type" class="form-control" value="{{ old('building_type') }}" required>
+</div>
 <hr>
 <div class="form-group">
     <label for="description">Building Description:</label>

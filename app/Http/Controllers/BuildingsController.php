@@ -47,9 +47,11 @@ class BuildingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($building_name, $street)
     {
-        //
+       $building = Building::locatedAt($building_name,$street)->first();
+
+        return view('buildings.show', compact('building'));
     }
 
     /**
