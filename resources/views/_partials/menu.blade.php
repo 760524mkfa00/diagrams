@@ -19,7 +19,7 @@
                 <!--=== Navigation ===-->
 
 
-                {!!    Fieldtrip\Events\menuRequested::create(function($event) {
+                {!!    Plans\Events\menuRequested::create(function($event) {
                     \Event::fire('build.menu', $event);
                     })->render();
                 !!}

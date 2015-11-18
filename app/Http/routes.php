@@ -29,3 +29,6 @@ $router->group(['middleware' => 'auth'], function() {
     Route::resource('users', 'User\UserController');
     Route::resource('permissions', 'User\PermissionController');
 });
+
+//move these to secure area later
+Route::resource('buildings', 'BuildingsController');

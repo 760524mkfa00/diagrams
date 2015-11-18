@@ -12,7 +12,7 @@ class CreateBuildingsTable extends Migration
      */
     public function up()
     {
-        Schema::table('buildings', function (Blueprint $table) {
+        Schema::create('buildings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->string('street');
@@ -25,28 +25,28 @@ class CreateBuildingsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::table('floors', function (Blueprint $table) {
+        Schema::create('floors', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('label')->nullable();
             $table->timestamps();
         });
 
-        Schema::table('plans', function (Blueprint $table) {
+        Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('building_id')->unsigned();
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
             $table->integer('floor_id')->unsigned();
             $table->foreign('floor_id')->references('id')->on('floors')->onDelete('cascade');
-            $table->string('plan');
+            $table->string('path');
             $table->timestamps();
         });
 
-        Schema::table('pictures', function (Blueprint $table) {
+        Schema::create('pictures', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('building_id')->unsigned();
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
-            $table->string('picture');
+            $table->string('path');
             $table->timestamps();
         });
     }
