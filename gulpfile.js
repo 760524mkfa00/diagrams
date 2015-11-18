@@ -20,14 +20,14 @@ elixir(function(mix) {
     ]);
 
     mix.scripts([
-        'libs/jquery.min.js',
-        'libs/jquery-ui.min.js',
-        'libs/bootstrap.min.js',
-        'libs/bootstrap-timepicker.js',
-        'plugins/listjs/list.min.js',
-        'plugins/listjs/list.fuzzysearch.min.js',
-        'plugins/slimscroll/jquery.slimscroll.min.js',
-        'plugins/slimscroll/jquery.slimscroll.horizontal.min.js'
+        '/libs/jquery.min.js',
+        '/libs/jquery-ui.min.js',
+        '/libs/bootstrap.min.js',
+        '/libs/bootstrap-timepicker.js',
+        '/plugins/listjs/list.min.js',
+        '/plugins/listjs/list.fuzzysearch.min.js',
+        '/plugins/slimscroll/jquery.slimscroll.min.js',
+        '/plugins/slimscroll/jquery.slimscroll.horizontal.min.js'
     ])
 
 });
