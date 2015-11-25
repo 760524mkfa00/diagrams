@@ -16,7 +16,8 @@ class BuildingsController extends Controller
      */
     public function index()
     {
-        //
+        return view('buildings.index')
+            ->withData(Building::all());
     }
 
     /**
