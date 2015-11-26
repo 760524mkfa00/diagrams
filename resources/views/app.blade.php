@@ -80,11 +80,7 @@
 		<div id="content">
 			<div class="container">
 				@include ('_partials.breadcrumb')
-				@include ('_partials.page-header')
 				@yield('content')
-                <p id="back-top">
-                    <a href="#top"><span></span>Back to Top</a>
-                </p>
 			</div>
 		</div>
 	</div>
