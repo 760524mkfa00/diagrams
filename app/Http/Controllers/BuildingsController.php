@@ -3,10 +3,15 @@
 namespace Plans\Http\Controllers;
 
 use Plans\Building;
+use Plans\Picture;
 use Illuminate\Http\Request;
 use Plans\Http\Requests\BuildingRequest;
 use Plans\Http\Controllers\Controller;
 
+/**
+ * Class BuildingsController
+ * @package Plans\Http\Controllers
+ */
 class BuildingsController extends Controller
 {
     /**
@@ -50,9 +55,33 @@ class BuildingsController extends Controller
      */
     public function show($building_name, $street)
     {
-       $building = Building::locatedAt($building_name,$street)->first();
+       $building = Building::locatedAt($building_name,$street);
 
         return view('buildings.show', compact('building'));
+    }
+
+    /**
+     * @param $building_name
+     * @param $street
+     * @param Request $request
+     */
+    public function addPhoto($building_name, $street, Request $request)
+    {
+        $this->validate($request, [
+            'file' => 'required|mimes:jpg,jpeg,png,bmp'
+        ]);
+
+        $file = Picture::fromForm($request->file('file'));
+
+        Building::locatedAt($building_name,$street)->addPhoto($file);
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function addFile(Request $request)
+    {
+        dd($request->file('file'));
     }
 
     /**
@@ -77,6 +106,8 @@ class BuildingsController extends Controller
     {
         //
     }
+
+
 
     /**
      * Remove the specified resource from storage.

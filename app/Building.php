@@ -18,13 +18,20 @@ class Building extends Model
         return $this->hasMany('Plans\Picture');
     }
 
-    public function scopeLocatedAt($query, $building_name, $street)
+    public function addPhoto(Picture $picture)
+    {
+        return $this->pictures()->save($picture);
+    }
+
+    public static function locatedAt($building_name, $street)
     {
         $building_name = str_replace('-', ' ', $building_name);
         $street = str_replace('-', ' ', $street);
 
-        return $query->where(compact('building_name', 'street'));
+        return static::where(compact('building_name', 'street'))->first();
     }
+
+
 
 
 }

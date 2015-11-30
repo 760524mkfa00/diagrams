@@ -7,16 +7,22 @@
             <h3>{{ $building->street . ', ' . $building->postal }}</h3>
             <hr>
             <p>{{ $building->description }}</p>
+            <hr>
+            @foreach($building->pictures as $picture)
+                <div class="col-md-3">
+                    <img src="/{{ $picture->path }}" alt="">
+                </div>
+            @endforeach
         </div>
         <div class="col-md-6">
             <h2>Upload Images Here</h2>
-            <form action="foobar" method="post" class="dropzone">
+            <form id="addPhotosForm" action="/buildings/{{ $building->building_name }}/{{ $building->street }}/photos" method="post" class="dropzone">
                 {{ csrf_field() }}
             </form>
             <hr>
             <h2>Upload Files</h2>
             <p>Please ensure you name you files and select the correct floor.</p>
-            <form action="foobar" method="post" class="form-horizontal col-md-12">
+            <form action="/buildings/{{ $building->building_name }}/{{ $building->street }}/file" method="post" class="form-horizontal col-md-12">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="file_name" class="control-label">File Name</label>
@@ -41,5 +47,10 @@
 
 @section('footer')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/4.2.0/dropzone.js"></script>
-
+<script>
+    Dropzone.options.addPhotosForm = {
+        maxFilesize: 2,
+        acceptedFiles: '.jpg, .jpeg, .png, .bmp'
+    };
+</script>
 @stop
