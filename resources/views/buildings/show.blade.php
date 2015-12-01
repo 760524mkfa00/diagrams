@@ -8,12 +8,13 @@
             <hr>
             <p>{{ $building->description }}</p>
             <hr>
-            @foreach($building->pictures as $picture)
-                <div class="col-md-3">
-                    <img src="/{{ $picture->path }}" alt="">
-                </div>
-            @endforeach
-
+            <div class="clearfix">
+                @foreach($building->pictures as $picture)
+                    <div class="col-md-3">
+                        <img src="/{{ $picture->path }}" alt="">
+                    </div>
+                @endforeach
+            </div>
             <hr>
             <div class="table-responsive">
                 <table class="table table-striped">
