@@ -13,6 +13,24 @@
                     <img src="/{{ $picture->path }}" alt="">
                 </div>
             @endforeach
+
+            <hr>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                    <th>Floor</th>
+                    <th>File Name</th>
+                    <th>File</th>
+                    </thead>
+                    @foreach($building->plans as $plan)
+                        <tr>
+                            <td>{{ $plan->floor_id }}</td>
+                            <td>{{ $plan->name }}</td>
+                            <td><a href="{{ route('get.file', [$building->building_name, $plan->path])  }}">{{ $plan->path }}</a></td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
         </div>
         <div class="col-md-6">
             <h2>Upload Images Here</h2>
@@ -22,8 +40,9 @@
             <hr>
             <h2>Upload Files</h2>
             <p>Please ensure you name you files and select the correct floor.</p>
-            <form action="/buildings/{{ $building->building_name }}/{{ $building->street }}/file" method="post" class="form-horizontal col-md-12">
+            <form action="/buildings/{{ $building->building_name }}/{{ $building->street }}/file" method="post" enctype="multipart/form-data" class="form-horizontal col-md-12">
                 {{ csrf_field() }}
+                <input type="hidden" name="building_name" value="{{ $building->building_name }}">
                 <div class="form-group">
                     <label for="file_name" class="control-label">File Name</label>
                     <input name="file_name" type="text" class="form-control" id="file_name" placeholder="File Name">
@@ -34,7 +53,7 @@
                 </div>
                 <div class="form-group">
                     <label for="path" class="control-label">File input</label>
-                    <input type="file" id="exampleInputFile">
+                    <input type="file" name="file">
                     <p class="help-block">Click and select the file to upload.</p>
                 </div>
                 <div class="form-group">

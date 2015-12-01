@@ -7,6 +7,7 @@ use Plans\Picture;
 use Illuminate\Http\Request;
 use Plans\Http\Requests\BuildingRequest;
 use Plans\Http\Controllers\Controller;
+use Plans\Plan;
 
 /**
  * Class BuildingsController
@@ -79,9 +80,28 @@ class BuildingsController extends Controller
     /**
      * @param Request $request
      */
-    public function addFile(Request $request)
+    public function addFile($building_name, $street, Request $request)
     {
-        dd($request->file('file'));
+        $this->validate($request, [
+            'file_name' => 'required',
+            'floor' => 'required',
+            'file' => 'required|mimes:pdf',
+        ]);
+
+
+        $file = Plan::fromForm($request->file('file'),$building_name);
+        $file->name = $request['file_name'];
+        $file->floor_id = $request['floor'];
+        Building::locatedAt($building_name,$street)->addFile($file);
+
+    }
+
+    public function downloadFile($building_name, $file_name)
+    {
+
+        $fileDL = storage_path() . '/app/files/' . $building_name . '/' . $file_name;
+        return response()->download($fileDL, $file_name);
+
     }
 
     /**

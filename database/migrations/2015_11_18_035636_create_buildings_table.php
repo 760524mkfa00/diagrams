@@ -39,6 +39,7 @@ class CreateBuildingsTable extends Migration
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
             $table->integer('floor_id')->unsigned();
             $table->foreign('floor_id')->references('id')->on('floors')->onDelete('cascade');
+            $table->string('name', 40);
             $table->string('path');
             $table->timestamps();
         });

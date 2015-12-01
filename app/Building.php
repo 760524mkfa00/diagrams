@@ -23,6 +23,11 @@ class Building extends Model
         return $this->pictures()->save($picture);
     }
 
+    public function addFile(Plan $plan)
+    {
+        return $this->plans()->save($plan);
+    }
+
     public static function locatedAt($building_name, $street)
     {
         $building_name = str_replace('-', ' ', $building_name);
