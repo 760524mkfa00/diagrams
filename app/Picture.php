@@ -28,4 +28,13 @@ class Picture extends Model
 
         return $picture;
     }
+
+    public function delete()
+    {
+        \File::delete([
+            $this->path,
+        ]);
+
+        parent::delete();
+    }
 }

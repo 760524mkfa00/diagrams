@@ -35,5 +35,6 @@ Route::resource('buildings', 'BuildingsController');
 Route::get('buildings/{building_name}/{street}', 'BuildingsController@show');
 Route::post('buildings/{building_name}/{street}/photos', 'BuildingsController@addPhoto');
 Route::post('buildings/{building_name}/{street}/file', 'BuildingsController@addFile');
+Route::delete('picture/{id}', 'PictureController@destroy');
 
 Route::get('download/{building_name}/{file_name}', ['as'=> 'get.file', 'uses' => 'BuildingsController@downloadFile']);

@@ -48,11 +48,11 @@ class BuildingsController extends Controller
         return Redirect()->Back();
     }
 
+
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $building_name
+     * @param $street
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($building_name, $street)
     {
@@ -60,6 +60,7 @@ class BuildingsController extends Controller
 
         return view('buildings.show', compact('building'));
     }
+
 
     /**
      * @param $building_name
@@ -77,7 +78,10 @@ class BuildingsController extends Controller
         Building::locatedAt($building_name,$street)->addPhoto($file);
     }
 
+
     /**
+     * @param $building_name
+     * @param $street
      * @param Request $request
      */
     public function addFile($building_name, $street, Request $request)
@@ -94,8 +98,15 @@ class BuildingsController extends Controller
         $file->floor_id = $request['floor'];
         Building::locatedAt($building_name,$street)->addFile($file);
 
+        return back();
+
     }
 
+    /**
+     * @param $building_name
+     * @param $file_name
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function downloadFile($building_name, $file_name)
     {
 

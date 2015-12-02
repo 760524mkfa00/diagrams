@@ -46,15 +46,15 @@
                 <input type="hidden" name="building_name" value="{{ $building->building_name }}">
                 <div class="form-group">
                     <label for="file_name" class="control-label">File Name</label>
-                    <input name="file_name" type="text" class="form-control" id="file_name" placeholder="File Name">
+                    <input name="file_name" type="text" class="form-control" id="file_name" placeholder="File Name" required>
                 </div>
                 <div class="form-group">
                     <label for="floor" class="control-label">Floor</label>
-                    <input name="floor" type="text" class="form-control" id="floor" placeholder="Floor">
+                    <input name="floor" type="text" class="form-control" id="floor" placeholder="Floor" required>
                 </div>
                 <div class="form-group">
                     <label for="path" class="control-label">File input</label>
-                    <input type="file" name="file">
+                    <input type="file" name="file" required>
                     <p class="help-block">Click and select the file to upload.</p>
                 </div>
                 <div class="form-group">

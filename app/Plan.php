@@ -26,7 +26,7 @@ class Plan extends Model
 
         $plan = new static;
 
-        $plan->path = $file->getClientOriginalName();
+        $plan->path =  $file->getClientOriginalName() . ' (' .time() . ')';
 
         $plan->base_dir = storage_path() . '/app/files/' . $building_name;
 
