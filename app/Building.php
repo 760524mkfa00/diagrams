@@ -33,7 +33,7 @@ class Building extends Model
         $building_name = str_replace('-', ' ', $building_name);
         $street = str_replace('-', ' ', $street);
 
-        return static::where(compact('building_name', 'street'))->first();
+        return static::where(compact('building_name', 'street'))->firstOrFail();
     }
 
 

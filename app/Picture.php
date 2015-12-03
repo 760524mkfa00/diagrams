@@ -2,12 +2,13 @@
 
 namespace Plans;
 
+use Image;
 use Illuminate\Database\Eloquent\Model;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Picture extends Model
 {
-    protected $fillable = ['path'];
+    protected $fillable = ['path', 'name', 'thumbnail_path'];
 
     protected $baseDir = 'building/images';
 
@@ -16,17 +17,39 @@ class Picture extends Model
         return $this->belongsTo('Plans\Building');
     }
 
-    public static function fromForm(UploadedFile $file)
+    public static function named($name)
     {
-        $picture = new static;
 
-        $name = time() . $file->getClientOriginalName();
+        return (new static)->saveAs($name);
 
-        $picture->path = $picture->baseDir . '/' . $name;
+    }
 
-        $file->move($picture->baseDir, $name);
+    public function move(UploadedFile $file)
+    {
+        $file->move($this->baseDir, $this->name);
 
-        return $picture;
+        $this->makeThumbnail();
+
+
+
+        return $this;
+    }
+
+    protected function makeThumbnail()
+    {
+        Image::make($this->path)
+            ->fit(200)
+            ->save($this->thumbnail_path);
+    }
+
+
+    public function saveAs($name)
+    {
+        $this->name = sprintf("%s-%s", time(), $name);
+        $this->path = sprintf("%s/%s", $this->baseDir, $this->name);
+        $this->thumbnail_path = sprintf("%s/tn-%s", $this->baseDir, $this->name);
+
+        return $this;
     }
 
     public function delete()

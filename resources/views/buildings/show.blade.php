@@ -6,12 +6,12 @@
             <h2>{{ $building->building_name }}</h2>
             <h3>{{ $building->street . ', ' . $building->postal }}</h3>
             <hr>
-            <p>{{ $building->description }}</p>
+            <p>{!! nl2br($building->description) !!}</p>
             <hr>
             <div class="clearfix">
                 @foreach($building->pictures as $picture)
-                    <div class="col-md-3">
-                        <img src="/{{ $picture->path }}" alt="">
+                    <div class="col-md-12">
+                        <img src="/{{ $picture->thumbnail_path }}" alt="">
                     </div>
                 @endforeach
             </div>

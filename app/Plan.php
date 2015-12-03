@@ -9,7 +9,7 @@ class Plan extends Model
 {
     protected $fillable = ['plan'];
 
-    protected $base_dir = '';
+    protected $baseDir = 'app/files';
 
     public function building()
     {
@@ -21,17 +21,25 @@ class Plan extends Model
         return $this->belongsTo('Plans\Floor');
     }
 
-    public static function fromForm(UploadedFile $file, $building_name)
+    public static function named($file_data)
     {
 
-        $plan = new static;
+        return (new static)->saveAs($file_data);
+    }
 
-        $plan->path =  $file->getClientOriginalName() . ' (' .time() . ')';
+    public function saveAs($file_data)
+    {
+        $this->name = sprintf("%s", $file_data['file_name']);
+        $this->path = sprintf("%s", $file_data->file->getClientOriginalName());
+        $this->floor_id = sprintf("%s", $file_data['floor']);
 
-        $plan->base_dir = storage_path() . '/app/files/' . $building_name;
+        return $this;
+    }
 
-        $file->move($plan->base_dir , $plan->path);
+    public function move(UploadedFile $file, $building_name)
+    {
+        $file->move(storage_path() . '/app/files/' . $building_name .'/' , $file->getClientOriginalName());
 
-        return $plan;
+        return $this;
     }
 }

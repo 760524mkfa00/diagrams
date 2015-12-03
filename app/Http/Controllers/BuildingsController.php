@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Plans\Http\Requests\BuildingRequest;
 use Plans\Http\Controllers\Controller;
 use Plans\Plan;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class BuildingsController
@@ -73,9 +74,19 @@ class BuildingsController extends Controller
             'file' => 'required|mimes:jpg,jpeg,png,bmp'
         ]);
 
-        $file = Picture::fromForm($request->file('file'));
+        $file = $this->makePicture($request->file('file'));
 
         Building::locatedAt($building_name,$street)->addPhoto($file);
+    }
+
+    /**
+     * @param UploadedFile $file
+     * @return mixed
+     */
+    protected function makePicture(UploadedFile $file)
+    {
+        return Picture::named($file->getClientOriginalName())
+            ->move($file);
     }
 
 
@@ -83,6 +94,7 @@ class BuildingsController extends Controller
      * @param $building_name
      * @param $street
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function addFile($building_name, $street, Request $request)
     {
@@ -92,16 +104,23 @@ class BuildingsController extends Controller
             'file' => 'required|mimes:pdf',
         ]);
 
+        $file = $this->makeFile($request->file('file'), $request);
 
-        $file = Plan::fromForm($request->file('file'),$building_name);
-        $file->name = $request['file_name'];
-        $file->floor_id = $request['floor'];
         Building::locatedAt($building_name,$street)->addFile($file);
 
         return back();
-
     }
 
+    /**
+     * @param UploadedFile $file
+     * @param $request
+     * @return mixed
+     */
+    protected function makeFile(UploadedFile $file, $request)
+    {
+        return Plan::named($request)
+            ->move($file, $request['building_name']);
+    }
     /**
      * @param $building_name
      * @param $file_name
@@ -113,41 +132,5 @@ class BuildingsController extends Controller
         $fileDL = storage_path() . '/app/files/' . $building_name . '/' . $file_name;
         return response()->download($fileDL, $file_name);
 
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
