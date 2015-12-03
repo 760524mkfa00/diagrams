@@ -136,7 +136,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        'Illuminate\Html\HtmlServiceProvider',
+        Illuminate\Html\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -147,6 +147,8 @@ return [
         Plans\Providers\RouteServiceProvider::class,
         Plans\Providers\RepositoryServiceProvider::class,
         Plans\Providers\MenuServiceProvider::class,
+
+        Intervention\Image\ImageServiceProvider::class,
     ],
 
     /*
@@ -195,8 +197,9 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
-        'Form'		=> 'Illuminate\Html\FormFacade',
-        'HTML'		=> 'Illuminate\Html\HtmlFacade',
+        'Form'		=> Illuminate\Html\FormFacade::class,
+        'HTML'		=> Illuminate\Html\HtmlFacade::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
 
     ],
 
