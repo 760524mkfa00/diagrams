@@ -3,7 +3,10 @@
 Event::listen('build.menu', function(Plans\Events\menuRequested $event)
 {
     $event->add('buildings', 'Buildings', 'javascript:void(0);', 100, 'building');
+    $event->add('buildings.index', 'Buildings',  URL::route('buildings.index'), 101, 'angle-right');
     $event->add('buildings.create', 'New',  URL::route('buildings.create'), 102, 'angle-right');
+
+    $event->add('floors', 'Floors',  URL::route('floor.index'), 202, 'angle-right');
 
     $event->add('users', 'Users', 'javascript:void(0);', 500, 'users');
     $event->add('users.current', 'Current',  URL::route('users.index'), 501, 'angle-right');

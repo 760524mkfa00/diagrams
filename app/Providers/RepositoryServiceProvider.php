@@ -22,6 +22,7 @@ class RepositoryServiceProvider extends ServiceProvider {
 	public function register()
 	{
         $this->app->bind('Plans\Repositories\User\UserRepository', 'Plans\Repositories\User\DbUserRepository');
+		$this->app->bind('Plans\Repositories\Floor\FloorRepository', 'Plans\Repositories\Floor\DbFloorRepository');
 	}
 
 }

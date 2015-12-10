@@ -12,7 +12,7 @@ var elixir = require('laravel-elixir');
  */
 
 elixir(function(mix) {
-    mix.less('app.less', 'resources/css');
+    mix.less('app.less', 'resources/assets/css');
 
     mix.styles([
         'jquery-ui.css',
@@ -24,8 +24,8 @@ elixir(function(mix) {
         '/libs/jquery-ui.min.js',
         '/libs/bootstrap.min.js',
         '/libs/bootstrap-timepicker.js',
-        '/plugins/listjs/list.min.js',
-        '/plugins/listjs/list.fuzzysearch.min.js',
+        //'/plugins/listjs/list.min.js',
+        //'/plugins/listjs/list.fuzzysearch.min.js',
         '/plugins/slimscroll/jquery.slimscroll.min.js',
         '/plugins/slimscroll/jquery.slimscroll.horizontal.min.js'
     ])

@@ -25,7 +25,7 @@
                     </thead>
                     @foreach($building->plans as $plan)
                         <tr>
-                            <td>{{ $plan->floor_id }}</td>
+                            <td>{!! Form::select('floor', $floors, $plan->id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
                             <td>{{ $plan->name }}</td>
                             <td><a href="{{ route('get.file', [$building->building_name, $plan->path])  }}">{{ $plan->path }}</a></td>
                         </tr>
@@ -34,6 +34,16 @@
             </div>
         </div>
         <div class="col-md-6">
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <h2>Upload Images Here</h2>
             <form id="addPhotosForm" action="/buildings/{{ $building->building_name }}/{{ $building->street }}/photos" method="post" class="dropzone">
                 {{ csrf_field() }}
@@ -50,8 +60,7 @@
                 </div>
                 <div class="form-group">
                     <label for="floor" class="control-label">Floor</label>
-                    <input name="floor" type="text" class="form-control" id="floor" placeholder="Floor" required>
-                    {!! Form::select('floor', $floors) !!}
+                    {!! Form::select('floor', $floors, null, ['class' => 'form-control', 'id'=> 'floor', 'required']) !!}
                 </div>
                 <div class="form-group">
                     <label for="path" class="control-label">File input</label>

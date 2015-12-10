@@ -16810,4 +16810,10 @@ Back to top button
   background-color: #777;
 }
 
-/*# sourceMappingURL=app.css.map */
+.selectpicker {
+  border: medium none;
+  box-shadow: none;
+  color: #555555 !important;
+  height: 20px;
+  background: none;
+}

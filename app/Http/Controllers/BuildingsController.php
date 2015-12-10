@@ -2,14 +2,14 @@
 
 namespace Plans\Http\Controllers;
 
-use Plans\Building;
-use Plans\Http\Requests\AddFileRequest;
-use Plans\Http\Requests\AddPictureRequest;
-use Plans\Picture;
-use Illuminate\Http\Request;
-use Plans\Http\Requests\BuildingRequest;
-use Plans\Http\Controllers\Controller;
 use Plans\Plan;
+use Plans\Picture;
+use Plans\Building;
+use Illuminate\Http\Request;
+use Plans\Http\Controllers\Controller;
+use Plans\Http\Requests\AddFileRequest;
+use Plans\Http\Requests\BuildingRequest;
+use Plans\Http\Requests\AddPictureRequest;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**

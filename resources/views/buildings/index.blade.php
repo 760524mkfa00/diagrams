@@ -1,6 +1,7 @@
 @extends('app')
 @section('title', 'Buildings')
 @section('content')
+    <h1>Buildings</h1>
     <div class="row">
         <div class="table-responsive">
             <table class="table table-striped">
