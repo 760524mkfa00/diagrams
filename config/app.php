@@ -147,6 +147,7 @@ return [
         Plans\Providers\RouteServiceProvider::class,
         Plans\Providers\RepositoryServiceProvider::class,
         Plans\Providers\MenuServiceProvider::class,
+        Plans\Providers\ComposerServiceProvider::class,
 
         Intervention\Image\ImageServiceProvider::class,
     ],

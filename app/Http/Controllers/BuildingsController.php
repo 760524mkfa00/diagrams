@@ -3,6 +3,8 @@
 namespace Plans\Http\Controllers;
 
 use Plans\Building;
+use Plans\Http\Requests\AddFileRequest;
+use Plans\Http\Requests\AddPictureRequest;
 use Plans\Picture;
 use Illuminate\Http\Request;
 use Plans\Http\Requests\BuildingRequest;
@@ -66,14 +68,10 @@ class BuildingsController extends Controller
     /**
      * @param $building_name
      * @param $street
-     * @param Request $request
+     * @param \Plans\Http\Requests\AddPictureRequest $request
      */
-    public function addPhoto($building_name, $street, Request $request)
+    public function addPhoto($building_name, $street, AddPictureRequest $request)
     {
-        $this->validate($request, [
-            'file' => 'required|mimes:jpg,jpeg,png,bmp'
-        ]);
-
         $file = $this->makePicture($request->file('file'));
 
         Building::locatedAt($building_name,$street)->addPhoto($file);
@@ -93,17 +91,11 @@ class BuildingsController extends Controller
     /**
      * @param $building_name
      * @param $street
-     * @param Request $request
+     * @param \Plans\Http\Requests\AddFileRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function addFile($building_name, $street, Request $request)
+    public function addFile($building_name, $street, AddFileRequest $request)
     {
-        $this->validate($request, [
-            'file_name' => 'required',
-            'floor' => 'required',
-            'file' => 'required|mimes:pdf',
-        ]);
-
         $file = $this->makeFile($request->file('file'), $request);
 
         Building::locatedAt($building_name,$street)->addFile($file);

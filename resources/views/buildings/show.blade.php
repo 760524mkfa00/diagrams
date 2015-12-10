@@ -51,6 +51,7 @@
                 <div class="form-group">
                     <label for="floor" class="control-label">Floor</label>
                     <input name="floor" type="text" class="form-control" id="floor" placeholder="Floor" required>
+                    {!! Form::select('floor', $floors) !!}
                 </div>
                 <div class="form-group">
                     <label for="path" class="control-label">File input</label>
