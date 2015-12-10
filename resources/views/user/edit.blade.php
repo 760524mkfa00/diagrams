@@ -1,6 +1,8 @@
 @extends('../app')
 @section('title', $data->first_name . ' ' .  $data->last_name)
 @section('content')
+
+    <h1>{{ $data->first_name . ' ' .  $data->last_name }}</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="widget box">

@@ -1,6 +1,3 @@
-
-
-
     <header class="header navbar navbar-fixed-top" role="banner">
         <div class="container">
             <!-- Only visible on smartphones, menu toggle -->
@@ -9,7 +6,7 @@
             </ul>
 
             <!-- Logo -->
-            <a class="navbar-brand" href="/fieldtrips">
+            <a class="navbar-brand" href="/buildings">
                 {!! HTML::image('img/logo.png', 'Floor Plans Logo') !!}
             </a>
             <!-- /logo -->
@@ -33,7 +30,7 @@
                        </ul>
                    </li>
                 @else
-                   <li><a href="{{ URL::to('/login') }}">Log In</a></li>
+                   <li><a href="{{ URL::to('/auth/login') }}">Log In</a></li>
                 @endif
             </ul>
         </div>

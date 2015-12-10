@@ -31,10 +31,10 @@
                                                 </td>
 
                                                 <td class="hidden-xs" style="width:9%;">
-                                                    {!! Form::open( array('route' => array('floors.destroy', $floor->id ),
+                                                    {!! Form::open( array('route' => array('floor.destroy', $floor->id ),
                                                                 'role' => 'form',
                                                                 'method' => 'DELETE')) !!}
-                                                    <button type="submit" title="Remove" href="{!! URL::route('floors.destroy', $floor->id) !!}" class="btn btn-delete pull-right"><i class="fa fa-trash-o"></i></button>
+                                                    <button type="submit" title="Remove" href="{!! URL::route('floor.destroy', $floor->id) !!}" class="btn btn-delete pull-right"><i class="fa fa-trash-o"></i></button>
                                                     {!! Form::close() !!}
                                                 </td>
                                             @endcan
@@ -45,7 +45,7 @@
                                 <h5>No floors Found, Please Add floors</h5>
                             @endif
                         </div>
-                        {{--@can('edit_floor')--}}
+                        @can('edit_floor')
                             <div class="col-md-6">
                                 <div class="col-md-12">
                                     {!! Form::open( array('route' => 'floor.store', 'role' => 'form')) !!}
@@ -60,7 +60,7 @@
                                     {!! Form::close() !!}
                                 </div>
                             </div>
-                        {{--@endcan--}}
+                        @endcan
                     </div>
                 </div>
             </div>

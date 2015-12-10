@@ -47,4 +47,41 @@ class FloorsController extends Controller
 
         return redirect('floor');
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function update($id, Request $request)
+    {
+
+        $this->validate($request, [
+            'name' => 'required|unique:floors|max:255',
+        ]);
+
+        $this->floor->update($id, $request->all());
+
+        return \Response::json(['success' => true, 'message' => 'Information Updated!']);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        try {
+            $this->floor->remove($id);
+        }
+        catch(\Exception $e)
+        {
+            return \Redirect::back()->withErrors('You cannot delete this item, it may has information attached to it. Please remove that information first');
+        }
+
+        return \Redirect::route('floor.index')->with('flash_message', 'Floor has been removed.');
+    }
 }

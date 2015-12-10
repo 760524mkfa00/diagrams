@@ -1,7 +1,6 @@
 @extends('../app')
-@section('title', 'Users')
-
 @section('content')
+    <h1>Users</h1>
     <div class="widget box">
         <div class="widget-header">
             <h4>

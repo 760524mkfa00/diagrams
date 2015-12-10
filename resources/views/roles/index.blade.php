@@ -1,6 +1,6 @@
 @extends('../app')
-@section('title', 'Roles')
 @section('content')
+    <h1>Roles</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="widget box">

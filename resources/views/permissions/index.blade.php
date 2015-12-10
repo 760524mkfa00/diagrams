@@ -1,6 +1,6 @@
 @extends('../app')
-@section('title', 'Permissions')
 @section('content')
+    <h1>Permission</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="widget box">

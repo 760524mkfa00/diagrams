@@ -1,6 +1,7 @@
 @extends('../app')
 @section('title', 'Create User')
 @section('content')
+    <h1>Create New User</h1>
     <div class="row">
         <div class="col-md-12">
             <div class="widget box">

@@ -1,7 +1,7 @@
 @extends('../app')
-@section('title', $roles->label)
 @section('content')
-@section('content')
+
+    <h1>{{ $roles->label }}</h1>
     {!! Form::open( array('route' => array('roles.sync', $roles->id ), 'method' => 'post')) !!}
     <div class="row">
         <div class="col-md-12">
