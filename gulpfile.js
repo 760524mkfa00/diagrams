@@ -15,7 +15,8 @@ elixir(function(mix) {
     mix.less('app.less', 'resources/assets/css');
 
     mix.styles([
-        'jquery-ui.css',
+        'libs/jquery-ui.css',
+        'libs/lity.css',
         'app.css'
     ]);
 
@@ -24,6 +25,7 @@ elixir(function(mix) {
         '/libs/jquery-ui.min.js',
         '/libs/bootstrap.min.js',
         '/libs/bootstrap-timepicker.js',
+        'libs/lity.js',
         //'/plugins/listjs/list.min.js',
         //'/plugins/listjs/list.fuzzysearch.min.js',
         '/plugins/slimscroll/jquery.slimscroll.min.js',

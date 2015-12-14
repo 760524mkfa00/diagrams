@@ -8,29 +8,39 @@
             <hr>
             <p>{!! nl2br($building->description) !!}</p>
             <hr>
-            <div class="clearfix">
-                @foreach($building->pictures as $picture)
-                    <div class="col-md-12">
-                        <img src="/{{ $picture->thumbnail_path }}" alt="">
-                    </div>
-                @endforeach
-            </div>
-            <hr>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                    <th>Floor</th>
-                    <th>File Name</th>
-                    <th>File</th>
-                    </thead>
-                    @foreach($building->plans as $plan)
-                        <tr>
-                            <td>{!! Form::select('floor', $floors, $plan->id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
-                            <td>{{ $plan->name }}</td>
-                            <td><a href="{{ route('get.file', [$building->building_name, $plan->path])  }}">{{ $plan->path }}</a></td>
-                        </tr>
+            <div class="row">
+                <div class="col-md-12">
+                    @foreach($building->pictures->chunk(4) as $set)
+                        <div class="row">
+                            @foreach($set as $picture)
+                                <div class="col-md-3">
+                                    <a href="/{{ $picture->path }}" data-lity>
+                                        <img src="/{{ $picture->thumbnail_path }}" alt="">
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
                     @endforeach
-                </table>
+                </div>
+            </div>
+            <div class="row">
+            <hr>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <th>Floor</th>
+                        <th>File Name</th>
+                        <th>File</th>
+                        </thead>
+                        @foreach($building->plans as $plan)
+                            <tr>
+                                <td>{!! Form::select('floor', $floors, $plan->id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
+                                <td>{{ $plan->name }}</td>
+                                <td><a href="{{ route('get.file', [$building->building_name, $plan->path])  }}">{{ $plan->path }}</a></td>
+                            </tr>
+                        @endforeach
+                    </table>
+                </div>
             </div>
         </div>
         <div class="col-md-6">

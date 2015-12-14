@@ -48,7 +48,7 @@ class BuildingsController extends Controller
     public function store(BuildingRequest $request)
     {
         Building::create($request->all());
-        return Redirect()->Back();
+        return Redirect('buildings');
     }
 
 
