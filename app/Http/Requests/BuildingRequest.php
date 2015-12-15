@@ -13,7 +13,7 @@ class BuildingRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return \Gate::allows('create_building');
     }
 
     /**

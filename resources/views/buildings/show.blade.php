@@ -14,8 +14,8 @@
                         <div class="row">
                             @foreach($set as $picture)
                                 <div class="col-md-3">
-                                    <a href="/{{ $picture->path }}" data-lity>
-                                        <img src="/{{ $picture->thumbnail_path }}" alt="">
+                                    <a href="{{ asset($picture->path) }}" data-lity>
+                                        <img src="{{ asset($picture->thumbnail_path) }}" alt="">
                                     </a>
                                 </div>
                             @endforeach
@@ -54,33 +54,37 @@
                     </ul>
                 </div>
             @endif
-            <h2>Upload Images Here</h2>
-            <form id="addPhotosForm" action="/buildings/{{ $building->building_name }}/{{ $building->street }}/photos" method="post" class="dropzone">
-                {{ csrf_field() }}
-            </form>
-            <hr>
-            <h2>Upload Files</h2>
-            <p>Please ensure you name you files and select the correct floor.</p>
-            <form action="/buildings/{{ $building->building_name }}/{{ $building->street }}/file" method="post" enctype="multipart/form-data" class="form-horizontal col-md-12">
-                {{ csrf_field() }}
-                <input type="hidden" name="building_name" value="{{ $building->building_name }}">
-                <div class="form-group">
-                    <label for="file_name" class="control-label">File Name</label>
-                    <input name="file_name" type="text" class="form-control" id="file_name" placeholder="File Name" required>
-                </div>
-                <div class="form-group">
-                    <label for="floor" class="control-label">Floor</label>
-                    {!! Form::select('floor', $floors, null, ['class' => 'form-control', 'id'=> 'floor', 'required']) !!}
-                </div>
-                <div class="form-group">
-                    <label for="path" class="control-label">File input</label>
-                    <input type="file" name="file" required>
-                    <p class="help-block">Click and select the file to upload.</p>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-default">Submit</button>
-                </div>
-            </form>
+            @can('add_picture')
+                <h2>Upload Images Here</h2>
+                <form id="addPhotosForm" action="{{ Route('addPicture',[$building->building_name,  $building->street]) }}" method="post" class="dropzone">
+                    {{ csrf_field() }}
+                </form>
+            @endcan
+            @can('add_picture')
+                <hr>
+                <h2>Upload Files</h2>
+                <p>Please ensure you name you files and select the correct floor.</p>
+                <form action="{{ Route('addFile',[$building->building_name,  $building->street]) }}" method="post" enctype="multipart/form-data" class="form-horizontal col-md-12">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="building_name" value="{{ $building->building_name }}">
+                    <div class="form-group">
+                        <label for="file_name" class="control-label">File Name</label>
+                        <input name="file_name" type="text" class="form-control" id="file_name" placeholder="File Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="floor" class="control-label">Floor</label>
+                        {!! Form::select('floor', $floors, null, ['class' => 'form-control', 'id'=> 'floor', 'required']) !!}
+                    </div>
+                    <div class="form-group">
+                        <label for="path" class="control-label">File input</label>
+                        <input type="file" name="file" required>
+                        <p class="help-block">Click and select the file to upload.</p>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
+                </form>
+            @endcan
         </div>
     </div>
 @stop

@@ -11,7 +11,7 @@ class UserRequest extends Request {
 	 */
 	public function authorize()
 	{
-		return true;
+		return \Gate::allows('edit_users');
 	}
 
 	/**

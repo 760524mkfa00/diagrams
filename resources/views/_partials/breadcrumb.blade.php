@@ -3,7 +3,7 @@
 					<ul id="breadcrumbs" class="breadcrumb">
 						<li>
 							<i class="fa fa-home"></i>
-							<a href="/dashboard">Dashboard</a>
+							<a href="#">Dashboard</a>
 						</li>
 						@if(Request::is( 'dashboard*'))
 

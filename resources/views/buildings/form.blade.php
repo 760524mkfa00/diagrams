@@ -1,6 +1,6 @@
 @inject('countries', 'Plans\Http\Utilities\Country')
 
-{{ csrf_field() }}
+{{--{{ csrf_field() }}--}}
 
 <div class="form-group">
     <label for="building_name">Name:</label>

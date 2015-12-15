@@ -13,7 +13,7 @@ class AddFileRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return \Gate::allows('add_file');;
     }
 
     /**

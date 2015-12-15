@@ -36,6 +36,7 @@ class BuildingsController extends Controller
      */
     public function create()
     {
+
         return view('buildings.create');
     }
 

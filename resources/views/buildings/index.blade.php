@@ -12,7 +12,7 @@
                 </thead>
                 @foreach($data as $building)
                     <tr>
-                        <td><a href="buildings/{!! $building->building_name !!}/{!! $building->street !!}">{!! $building->building_name !!}</a></td>
+                        <td><a href="{{ route('showBuilding', [$building->building_name, $building->street])  }}">{!! $building->building_name !!}</a></td>
                         <td>{!! $building->street !!}</td>
                         <td>{!! $building->building_type !!}</td>
                     </tr>
