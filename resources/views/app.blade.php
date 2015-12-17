@@ -70,7 +70,7 @@
 	</script>
 
 </head>
-<body onload="initialize()">
+<body onload="">
 	@include ('../_partials.flashMessage')
 	@include ('_partials.nav')
 

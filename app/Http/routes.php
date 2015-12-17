@@ -38,9 +38,9 @@ $router->group(['middleware' => 'auth'], function() {
     Route::delete('picture/{id}', ['as' => 'removePicture', 'uses' => 'PictureController@destroy']);
 
     //Files
-    Route::post('buildings/{building_name}/{street}/file', ['as' => 'addFile', 'uses' => 'PlanController@store'] );
+    Route::post('plan/{building_name}/{street}/file', ['as' => 'addFile', 'uses' => 'PlanController@store'] );
     Route::get('download/{id}', ['as'=> 'get.file', 'uses' => 'PlanController@downloadFile']);
-
+    Route::delete('plan/{id}', ['as' => 'removeFile', 'uses' => 'PlanController@destroy']);
     //Floors
     Route::resource('floor', 'FloorsController');
 

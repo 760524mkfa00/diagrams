@@ -52,7 +52,7 @@ class Plan extends Model
     public function nameOfFile()
     {
         $name = sha1(
-            time() . $this->file->getClientOriginalName()
+            $this->file->getClientOriginalName()
         );
 
         $extension = $this->file->getClientOriginalExtension();
@@ -122,6 +122,20 @@ class Plan extends Model
             'name' => $this->filename
         ]);
 
+    }
+
+
+    /**
+     * Delete the selected picture
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        \File::delete([
+            storage_path() . '/' . $this->path
+        ]);
+
+        parent::delete();
     }
 
 }

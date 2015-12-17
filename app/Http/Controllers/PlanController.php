@@ -42,4 +42,11 @@ class PlanController extends Controller
 
 
     }
+
+    public function destroy($id)
+    {
+        Plan::findOrFail($id)->delete();
+
+        return back();
+    }
 }

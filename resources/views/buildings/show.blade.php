@@ -38,12 +38,20 @@
                         <th>Floor</th>
                         <th>File Name</th>
                         <th>File</th>
+                        <th></th>
                         </thead>
                         @foreach($building->plans as $plan)
                             <tr>
                                 <td>{!! Form::select('floor', $floors, $plan->id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
                                 <td>{{ $plan->name }}</td>
-                                <td><a href="{{ route('get.file', [$plan->id])  }}">Download File</a></td>
+                                <td><a href="{{ route('get.file', [$plan->id])  }}">Download File</a>
+                                <td>
+                                    <form method="POST" action="{{ Route('removeFile',[$plan->id]) }}">
+                                        {!! csrf_field() !!}
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </table>

@@ -70,7 +70,7 @@ class Picture extends Model
     public function fileName()
     {
         $name = sha1(
-            time() . $this->file->getClientOriginalName()
+            $this->file->getClientOriginalName()
         );
 
         $extension = $this->file->getClientOriginalExtension();
