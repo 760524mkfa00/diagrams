@@ -85,7 +85,7 @@
             <div class="quote">Floor Plan Solutions by Kieran</div>
         </header>
         <footer>
-            <a class="button" href="/auth/login">Proceed to login phase</a>
+            <a class="button" href="{{ action('Auth\AuthController@getLogin') }}">Proceed to login phase</a>
         </footer>
 
     </div>

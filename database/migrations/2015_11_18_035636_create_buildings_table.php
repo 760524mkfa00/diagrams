@@ -41,6 +41,7 @@ class CreateBuildingsTable extends Migration
             $table->foreign('floor_id')->references('id')->on('floors')->onDelete('cascade');
             $table->string('name', 40);
             $table->string('path');
+            $table->string('filename', 40);
             $table->timestamps();
         });
 

@@ -14,6 +14,13 @@
                         <div class="row">
                             @foreach($set as $picture)
                                 <div class="col-md-3">
+
+                                    <form method="POST" action="{{ Route('removePicture',[$picture->id]) }}">
+                                        {!! csrf_field() !!}
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <button type="submit">Delete</button>
+                                    </form>
+
                                     <a href="{{ asset($picture->path) }}" data-lity>
                                         <img src="{{ asset($picture->thumbnail_path) }}" alt="">
                                     </a>
@@ -36,7 +43,7 @@
                             <tr>
                                 <td>{!! Form::select('floor', $floors, $plan->id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
                                 <td>{{ $plan->name }}</td>
-                                <td><a href="{{ route('get.file', [$building->building_name, $plan->path])  }}">{{ $plan->path }}</a></td>
+                                <td><a href="{{ route('get.file', [$plan->id])  }}">Download File</a></td>
                             </tr>
                         @endforeach
                     </table>
@@ -56,7 +63,7 @@
             @endif
             @can('add_picture')
                 <h2>Upload Images Here</h2>
-                <form id="addPhotosForm" action="{{ Route('addPicture',[$building->building_name,  $building->street]) }}" method="post" class="dropzone">
+                <form id="addPhotosForm" action="{{ Route('addPicture',[$building->building_name,  $building->street]) }}" method="post" class="dropzone" enctype="multipart/form-data">
                     {{ csrf_field() }}
                 </form>
             @endcan

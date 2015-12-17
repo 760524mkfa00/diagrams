@@ -7,9 +7,21 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Plan extends Model
 {
-    protected $fillable = ['plan'];
+    protected $fillable = ['floor_id', 'name', 'path', 'filename'];
 
-    protected $baseDir = 'app/files';
+    protected $file;
+
+    protected $data;
+
+    /**
+     * Upload the file when the create method is called
+     */
+    protected static function boot()
+    {
+        static::creating( function ($file) {
+            return $file->upload();
+        });
+    }
 
     public function building()
     {
@@ -21,25 +33,95 @@ class Plan extends Model
         return $this->belongsTo('Plans\Floor');
     }
 
-    public static function named($file_data)
-    {
 
-        return (new static)->saveAs($file_data);
+    public static function fromFile(UploadedFile $file, $request)
+    {
+        $plan = new Static;
+
+        $plan->file = $file;
+        $plan->data = $request;
+
+        return $plan->fill([
+            'name' => $plan->fileName(),
+            'filename' => $plan->nameOfFile(),
+            'path' => $plan->filePath(),
+            'floor_id' => $plan->floorID()
+        ]);
     }
 
-    public function saveAs($file_data)
+    public function nameOfFile()
     {
-        $this->name = sprintf("%s", $file_data['file_name']);
-        $this->path = sprintf("%s", $file_data->file->getClientOriginalName());
-        $this->floor_id = sprintf("%s", $file_data['floor']);
+        $name = sha1(
+            time() . $this->file->getClientOriginalName()
+        );
+
+        $extension = $this->file->getClientOriginalExtension();
+
+        return "{$name}.{$extension}";
+    }
+
+    /**
+     * Create a file name and encode it with SHA1
+     * @return string
+     */
+    public function fileName()
+    {
+        return $this->data->file_name;
+    }
+
+    /**
+     * Create the file path
+     * @return string
+     */
+    public function filePath()
+    {
+        return $this->baseDir() . '/' . $this->buildingName() . '/' . $this->nameOfFile();
+    }
+
+    public function floorID()
+    {
+        return $this->data->floor;
+    }
+
+
+    public function buildingName()
+    {
+        return $this->data->building_name;
+    }
+
+
+    /**
+     * sets the base directory
+     * @return string
+     */
+    public function baseDir()
+    {
+        return 'app/files';
+    }
+
+
+
+    public function upload()
+    {
+        $this->file->move($this->fileDirectory(), $this->nameOfFile());
 
         return $this;
     }
 
-    public function move(UploadedFile $file, $building_name)
+    public function fileDirectory()
     {
-        $file->move(storage_path() . '/app/files/' . $building_name .'/' , $file->getClientOriginalName());
-
-        return $this;
+        return storage_path() . '/' . $this->baseDir() . '/' . $this->buildingName();
     }
+
+    public function download()
+    {
+        $plan = new Static;
+
+        return $plan->fill([
+            'path' => storage_path() . '/' . $this->path,
+            'name' => $this->filename
+        ]);
+
+    }
+
 }
