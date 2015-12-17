@@ -42,7 +42,7 @@
                         </thead>
                         @foreach($building->plans as $plan)
                             <tr>
-                                <td>{!! Form::select('floor', $floors, $plan->id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
+                                <td>{!! Form::select('floor', $floors, $plan->floor_id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
                                 <td>{{ $plan->name }}</td>
                                 <td><a href="{{ route('get.file', [$plan->id])  }}">Download File</a>
                                 @can('delete_file')

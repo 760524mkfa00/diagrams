@@ -47,6 +47,7 @@ class Plan extends Model
             'path' => $plan->filePath(),
             'floor_id' => $plan->floorID()
         ]);
+
     }
 
     public function nameOfFile()

@@ -19,7 +19,6 @@ class PlanController extends Controller
      */
     public function store($building_name, $street, AddFileRequest $request)
     {
-//        $file = $this->makeFile($request->file('file'), $request);
 
         $file = Plan::fromFile($request->file('file'), $request);
 
