@@ -14,13 +14,13 @@
                         <div class="row">
                             @foreach($set as $picture)
                                 <div class="col-md-3">
-
-                                    <form method="POST" action="{{ Route('removePicture',[$picture->id]) }}">
-                                        {!! csrf_field() !!}
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit">Delete</button>
-                                    </form>
-
+                                    @can('delete_picture')
+                                        <form method="POST" action="{{ Route('removePicture',[$picture->id]) }}">
+                                            {!! csrf_field() !!}
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                    @endcan
                                     <a href="{{ asset($picture->path) }}" data-lity>
                                         <img src="{{ asset($picture->thumbnail_path) }}" alt="">
                                     </a>
@@ -45,13 +45,15 @@
                                 <td>{!! Form::select('floor', $floors, $plan->id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
                                 <td>{{ $plan->name }}</td>
                                 <td><a href="{{ route('get.file', [$plan->id])  }}">Download File</a>
-                                <td>
-                                    <form method="POST" action="{{ Route('removeFile',[$plan->id]) }}">
-                                        {!! csrf_field() !!}
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <button type="submit">Delete</button>
-                                    </form>
-                                </td>
+                                @can('delete_file')
+                                    <td>
+                                        <form method="POST" action="{{ Route('removeFile',[$plan->id]) }}">
+                                            {!! csrf_field() !!}
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit">Delete</button>
+                                        </form>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     </table>
