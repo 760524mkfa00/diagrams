@@ -19,7 +19,7 @@ class PlanController extends Controller
      */
     public function store($building_name, $street, AddFileRequest $request)
     {
-
+        dd($request->file);
         $file = Plan::fromFile($request->file('file'), $request);
 
         Building::locatedAt($building_name,$street)->addFile($file);

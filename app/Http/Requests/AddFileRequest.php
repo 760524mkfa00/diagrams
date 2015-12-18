@@ -24,9 +24,9 @@ class AddFileRequest extends Request
     public function rules()
     {
         return [
-            'file_name' => 'required',
-            'floor' => 'required',
-            'file' => 'required|mimes:pdf',
+//            'file_name' => 'required',
+//            'floor' => 'required',
+//            'file' => 'required|mimes:pdf',
         ];
     }
 }
