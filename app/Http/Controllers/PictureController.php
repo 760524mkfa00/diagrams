@@ -20,6 +20,7 @@ class PictureController extends Controller
      */
     public function store($building_name, $street, AddPictureRequest $request)
     {
+
         $file = Picture::fromFile($request->file('file'));
 
         Building::locatedAt($building_name,$street)->addPhoto($file);
