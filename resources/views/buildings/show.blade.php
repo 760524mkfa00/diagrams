@@ -73,12 +73,12 @@
                 </div>
             @endif
             @can('add_picture')
-            <h2>Upload Images Here</h2>
+                <h2>Upload Images Here</h2>
 
-            <form id="addPhotosForm" action="{{ Route('addPicture',[$building->building_name,  $building->street]) }}"
-                  method="post" class="dropzone" enctype="multipart/form-data">
-                {{ csrf_field() }}
-            </form>
+                <form id="addPhotosForm" action="{{ Route('addPicture',[$building->building_name,  $building->street]) }}"
+                      method="post" class="dropzone" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                </form>
             @endcan
         </div>
     </div>
@@ -90,9 +90,6 @@
                 <h2>Upload Files</h2>
 
                 <p>Please ensure you name you files and select the correct floor.</p>
-                {{--            <form action="{{ Route('addFile',[$building->building_name,  $building->street]) }}" method="post"--}}
-                {{--enctype="multipart/form-data" class="dropzone form-horizontal col-md-12">--}}
-                {{--                {{ csrf_field() }}--}}
                 <div id="actions" class="row">
 
                     <div class="col-lg-7">
@@ -120,51 +117,55 @@
                               </div>
                         </span>
                     </div>
+
                 </div>
-
+<form>
                 <div class="table table-striped files" id="previews">
-
-                <div id="template" class="file-row row">
-                    <div class="col-md-12">
+                    <div id="template" class="file-row row">
+                        <div class="col-md-12">
                             <!-- This is used as the file preview template -->
-                        <div>
-                            <span class="preview"><img data-dz-thumbnail /></span>
-                        </div>
-                        <div>
-                            <p class="name" data-dz-name></p>
-                            <strong class="error text-danger" data-dz-errormessage></strong>
-                        </div>
-
-                        <div>
-                            <input name="file_name" type="text" class="form-control" id="file_name" placeholder="File Name" required>
-                        </div>
-                        <div>
-                            {!! Form::select('floor', $floors, null, ['class' => 'form-control', 'id'=> 'floor', 'required']) !!}
-                        </div>
-
-                        <div>
-                            <p class="size" data-dz-size></p>
-                            <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-                                <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                            <hr>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <span class="preview"><img data-dz-thumbnail /></span>
+                                </div>
+                                <div class="form-group">
+                                    <p class="name" data-dz-name></p>
+                                    <strong class="error text-danger" data-dz-errormessage></strong>
+                                </div>
+                                <div class="form-group" id="filename_div">
+                                    <input name="file_name" type="text" class="fileInput form-control" placeholder="File Name" required>
+                                </div>
+                                <div class="form-group" id="floor_div">
+                                    {!! Form::select('floor', $floors, null, ['class' => 'form-control', 'required']) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group"></div>
+                                <div class="form-group">
+                                    <p class="size" data-dz-size></p>
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                                        <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary start">
+                                        <i class="fa fa-upload"></i>
+                                        <span>Start</span>
+                                    </button>
+                                    <button data-dz-remove class="btn btn-warning cancel">
+                                        <i class="fa fa-ban"></i>
+                                        <span>Cancel</span>
+                                    </button>
+                                    <button data-dz-remove class="btn btn-danger delete">
+                                        <i class="fa fa-trash"></i>
+                                        <span>Delete</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <button class="btn btn-primary start">
-                                <i class="fa fa-upload"></i>
-                                <span>Start</span>
-                            </button>
-                            <button data-dz-remove class="btn btn-warning cancel">
-                                <i class="fa fa-ban"></i>
-                                <span>Cancel</span>
-                            </button>
-                            <button data-dz-remove class="btn btn-danger delete">
-                                <i class="fa fa-trash"></i>
-                                <span>Delete</span>
-                            </button>
-                        </div>
                     </div>
-                </div>
-            </div>
+                </div></form>
             @endcan
         </div>
     </div>
@@ -189,12 +190,18 @@
             autoQueue: false, // Make sure the files aren't queued until manually added
             previewsContainer: "#previews", // Define the container to display the previews
             clickable: ".fileinput-button", // Define the element that should be used as click trigger to select files.
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            acceptedFiles: '.pdf',
+            addRemoveLinks: true
         });
 
         myDropzone.on("addedfile", function(file) {
             // Hookup the start button
             file.previewElement.querySelector(".start").onclick = function() { myDropzone.enqueueFile(file); };
+//            document.getElementById('filename_div')[0].innerHTML += '<input name="file_name" type="text" class="form-control"  placeholder="File Name" required id="file_name_' + file.name + '">';
+{{--            document.getElementById('floor_div').innerHTML += '{!! Form::select('floor', $floors, null, ['class' => 'form-control', 'required','id'=> "floor_" + file.name ]) !!}';--}}
+            document.getElementsByClassName("fileInput")[0].setAttribute("id", "file_name_" + file.name)
+            document.getElementsByTagName("select")[0].setAttribute("id", "floor_" + file.name)
         });
 
         // Update the total progress bar
@@ -207,8 +214,8 @@
             document.querySelector("#total-progress").style.opacity = "1";
             // And disable the start button
             file.previewElement.querySelector(".start").setAttribute("disabled", "disabled");
-            formData.append('file_name',$('#file_name').val());
-            formData.append('floor',$('#floor').val());
+            formData.append('file_name', document.getElementById("file_name_" + file.name).value);
+            formData.append('floor', document.getElementById("floor_" + file.name).value);
         });
 
         // Hide the total progress bar when nothing's uploading anymore
