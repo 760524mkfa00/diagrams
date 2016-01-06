@@ -99,28 +99,11 @@
                 <form id="fileupload" action="{{ Route('addFile',[$building->building_name,  $building->street]) }}"
                       method="post" enctype="multipart/form-data" >
                     <noscript><input type="hidden" name="redirect" value="//plans.dev/"></noscript>
-
-                    {{--<!-- The fileinput-button span is used to style the file input field as button -->--}}
-                    {{--<span class="btn btn-success fileinput-button">--}}
-                        {{--<i class="fa fa-plus"></i>--}}
-                        {{--<span>Add files...</span>--}}
-                        {{--<!-- The file input field used as target for the file upload widget -->--}}
-                        {{--<input id="fileupload" type="file" name="files[]" multiple>--}}
-                    {{--</span>--}}
-                    {{--<br>--}}
-                    {{--<br>--}}
-                    {{--<!-- The global progress bar -->--}}
-                    {{--<div id="progress" class="progress">--}}
-                        {{--<div class="progress-bar progress-bar-success"></div>--}}
-                    {{--</div>--}}
-                    {{--<!-- The container for the uploaded files -->--}}
-                    {{--<div id="files" class="files"></div>--}}
-
-                            <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                    <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                     <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
                     <div class="row fileupload-buttonbar">
                         <div class="col-lg-7">
-                            <!-- The fileinput-button span is used to style the file input field as button -->
+                    <!-- The fileinput-button span is used to style the file input field as button -->
                     <span class="btn btn-success fileinput-button">
                         <i class="fa fa-plus"></i>
                         <span>Add files...</span>
@@ -134,11 +117,11 @@
                                 <i class="fa fa-ban"></i>
                                 <span>Cancel upload</span>
                             </button>
-                            <button type="button" class="btn btn-danger delete">
-                                <i class="fa fa-trash"></i>
-                                <span>Delete</span>
-                            </button>
-                            <input type="checkbox" class="toggle">
+                            {{--<button type="button" class="btn btn-danger delete">--}}
+                                {{--<i class="fa fa-trash"></i>--}}
+                                {{--<span>Delete</span>--}}
+                            {{--</button>--}}
+                            {{--<input type="checkbox" class="toggle">--}}
                             <!-- The global file processing state -->
                             <span class="fileupload-process"></span>
                         </div>
@@ -166,7 +149,8 @@
         <!-- The template to display files available for upload -->
     <script id="template-upload" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-upload fade">
+    <tr class="template-upload fade">.
+    <input type="hidden" name="_token" value="{{ csrf_token() }}">
         <td>
             <span class="preview"></span>
         </td>
@@ -174,6 +158,8 @@
             <p class="name">{%=file.name%}</p>
             <strong class="error text-danger"></strong>
         </td>
+        <td><input id="file_name" name="file_name" type="text" class="fileInput form-control" placeholder="File Name" required></td>
+        <td>{!! Form::select('floor', $floors, null, ['class' => 'form-control', 'id' => 'floor','required']) !!}</td>
         <td>
             <p class="size">Processing...</p>
             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
@@ -249,7 +235,7 @@
     <!-- The Canvas to Blob plugin is included for image resizing functionality -->
     <script src="//blueimp.github.io/JavaScript-Canvas-to-Blob/js/canvas-to-blob.min.js"></script>
     <!-- Bootstrap JS is not required, but included for the responsive demo navigation -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    {{--<script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>--}}
     <!-- blueimp Gallery script -->
     <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
     <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
@@ -300,11 +286,23 @@
                                     $this.remove();
                                 });
                             });
+
+            $('#fileupload').bind('fileuploadsubmit', function (e, data) {
+                var inputs = data.context.find(':input');
+                if (inputs.filter(function () {
+                            return !this.value && $(this).prop('required');
+                        }).first().focus().length) {
+                    data.context.find('button').prop('disabled', false);
+                    return false;
+                }
+                data.formData = inputs.serializeArray();
+            });
+
             $('#fileupload').fileupload({
                 url: url,
                 dataType: 'json',
                 autoUpload: false,
-                acceptFileTypes: /(\.|\/)(gif|jpe?g|png|pdf)$/i,
+                acceptFileTypes: /(\.|\/)(pdf)$/i,
                 uploadTemplateId: 'template-upload',
                 maxFileSize: 999000,
                 // Enable image resizing, except for Android and Opera,
@@ -353,20 +351,12 @@
                         progress + '%'
                 );
             }).on('fileuploaddone', function (e, data) {
-                $.each(data.result.files, function (index, file) {
-                    if (file.url) {
-                        var link = $('<a>')
-                                .attr('target', '_blank')
-                                .prop('href', file.url);
-                        $(data.context.children()[index])
-                                .wrap(link);
-                    } else if (file.error) {
-                        var error = $('<span class="text-danger"/>').text(file.error);
-                        $(data.context.children()[index])
-                                .append('<br>')
-                                .append(error);
-                    }
-                });
+                $.each(data.files, function (index) {
+                    var error = $('<span class="text-danger"/>').text('File upload failed.');
+                    $(data.context.children()[index])
+                            .append('<br>')
+                            .append(error);
+                    });
             }).on('fileuploadfail', function (e, data) {
                 $.each(data.files, function (index) {
                     var error = $('<span class="text-danger"/>').text('File upload failed.');

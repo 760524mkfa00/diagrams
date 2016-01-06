@@ -174,7 +174,7 @@
                 if (data.context) {
                     data.context.each(function (index) {
                         var file = files[index] ||
-                                {error: 'Empty file upload result'};
+                                {error: 'File Uploaded'};
                         deferred = that._addFinishedDeferreds();
                         that._transition($(this)).done(
                             function () {

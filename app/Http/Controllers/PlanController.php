@@ -20,11 +20,11 @@ class PlanController extends Controller
     public function store($building_name, $street, AddFileRequest $request)
     {
 
-        $file = Plan::fromFile($request->file('file'), $request);
+        $files = head($request->file('files'));
+        $file = Plan::fromFile($files, $request);
 
         Building::locatedAt($building_name,$street)->addFile($file);
-
-        return back();
+        return \Response::json(['success' => true, 'message' => 'Complete']);
 
     }
 

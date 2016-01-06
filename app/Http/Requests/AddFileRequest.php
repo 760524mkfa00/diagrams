@@ -26,7 +26,7 @@ class AddFileRequest extends Request
         return [
             'file_name' => 'required',
             'floor' => 'required',
-            'file' => 'required|mimes:pdf',
+//            'files' => 'required|mimes:pdf',
         ];
     }
 }
