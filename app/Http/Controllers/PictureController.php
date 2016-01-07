@@ -5,10 +5,10 @@ namespace Plans\Http\Controllers;
 use Plans\Picture;
 use Plans\Building;
 use Plans\Http\Requests;
-use Illuminate\Http\Request;
+use Plans\AddPictureToBuilding;
 use Plans\Http\Controllers\Controller;
 use Plans\Http\Requests\AddPictureRequest;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+
 
 class PictureController extends Controller
 {
@@ -20,10 +20,10 @@ class PictureController extends Controller
      */
     public function store($building_name, $street, AddPictureRequest $request)
     {
+        $building = Building::locatedAt($building_name, $street);
+        $photo = $request->file('file');
 
-        $file = Picture::fromFile($request->file('file'));
-
-        Building::locatedAt($building_name,$street)->addPhoto($file);
+        (new AddPictureToBuilding($building, $photo))->save();
     }
 
 
