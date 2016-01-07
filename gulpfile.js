@@ -17,6 +17,8 @@ elixir(function(mix) {
     mix.styles([
         'libs/jquery-ui.css',
         'libs/lity.css',
+        'libs/jquery.fileupload.css',
+        'libs/jquery.fileupload-ui.css',
         'app.css'
     ]);
 

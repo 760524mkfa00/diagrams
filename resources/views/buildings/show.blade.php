@@ -1,10 +1,5 @@
 @extends('app')
 @section('content')
-    {{--<link rel="stylesheet" href="/css/uploader/style.css">--}}
-
-    <link rel="stylesheet" href="/uploader/css/jquery.fileupload.css">
-    <link rel="stylesheet" href="/uploader/css/jquery.fileupload-ui.css">
-
     <div class="row">
         <div class="col-md-6">
             <h2>{{ $building->building_name }}</h2>
@@ -227,7 +222,7 @@
 
     {{--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>--}}
     <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
-    <script src="/uploader/js/vendor/jquery.ui.widget.js"></script>
+    {!! HTML::script('uploader/js/vendor/jquery.ui.widget.js') !!}
     <!-- The Templates plugin is included to render the upload/download listings -->
     <script src="//blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
     <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
@@ -239,26 +234,26 @@
     <!-- blueimp Gallery script -->
     <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
     <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-    <script src="/uploader/js/jquery.iframe-transport.js"></script>
+    {!! HTML::script('uploader/js/jquery.iframe-transport.js') !!}
     <!-- The basic File Upload plugin -->
-    <script src="/uploader/js/jquery.fileupload.js"></script>
+    {!! HTML::script('uploader/js/jquery.fileupload.js') !!}
     <!-- The File Upload processing plugin -->
-    <script src="/uploader/js/jquery.fileupload-process.js"></script>
+    {!! HTML::script('uploader/js/jquery.fileupload-process.js') !!}
     <!-- The File Upload image preview & resize plugin -->
-    <script src="/uploader/js/jquery.fileupload-image.js"></script>
+    {!! HTML::script('uploader/js/jquery.fileupload-image.js') !!}
     <!-- The File Upload audio preview plugin -->
-    <script src="/uploader/js/jquery.fileupload-audio.js"></script>
+    {!! HTML::script('uploader/js/jquery.fileupload-audio.js') !!}
     <!-- The File Upload video preview plugin -->
-    <script src="/uploader/js/jquery.fileupload-video.js"></script>
+    {!! HTML::script('uploader/js/jquery.fileupload-video.js') !!}
     <!-- The File Upload validation plugin -->
-    <script src="/uploader/js/jquery.fileupload-validate.js"></script>
+    {!! HTML::script('uploader/js/jquery.fileupload-validate.js') !!}
     <!-- The File Upload user interface plugin -->
-    <script src="/uploader/js/jquery.fileupload-ui.js"></script>
+    {!! HTML::script('uploader/js/jquery.fileupload-ui.js') !!}
     <!-- The main application script -->
-    <script src="/uploader/js/main.js"></script>
+    {!! HTML::script('uploader/js/main.js') !!}
     <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
     <!--[if (gte IE 8)&(lt IE 10)]>
-    <script src="/uploader/js/cors/jquery.xdr-transport.js"></script>
+    {!! HTML::script('uploader/js/cors/jquery.xdr-transport.js') !!}
     <![endif]-->
 
     <script>
