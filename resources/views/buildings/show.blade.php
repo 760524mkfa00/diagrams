@@ -37,6 +37,7 @@
                         <thead>
                         <th>Floor</th>
                         <th>File Name</th>
+                        <th>File Type</th>
                         <th>File</th>
                         <th></th>
                         </thead>
@@ -44,6 +45,11 @@
                             <tr>
                                 <td>{!! Form::select('floor', $floors, $plan->floor_id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
                                 <td>{{ $plan->name }}</td>
+                                @if($plan->file_type <> "pdf")
+                                    <td style="color:blue"><i class="fa fa-pencil-square-o"></i> {{$plan->file_type}}</td>
+                                @else
+                                    <td style="color:red"><i class="fa fa-file-{{$plan->file_type}}-o"></i> {{$plan->file_type}}</td>
+                                @endif
                                 <td><a href="{{ route('get.file', [$plan->id])  }}">Download File</a>
                                 @can('delete_file')
                                 <td>
@@ -178,46 +184,7 @@
 </script>
     <!-- The template to display files available for download -->
     <script id="template-download" type="text/x-tmpl">
-{% for (var i=0, file; file=o.files[i]; i++) { %}
-    <tr class="template-download fade">
-        <td>
-            <span class="preview">
-                {% if (file.thumbnailUrl) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
-                {% } %}
-            </span>
-        </td>
-        <td>
-            <p class="name">
-                {% if (file.url) { %}
-                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
-                {% } else { %}
-                    <span>{%=file.name%}</span>
-                {% } %}
-            </p>
-            {% if (file.error) { %}
-                <div><span class="label label-danger">Error</span> {%=file.error%}</div>
-            {% } %}
-        </td>
-        <td>
-            <span class="size">{%=o.formatFileSize(file.size)%}</span>
-        </td>
-        <td>
-            {% if (file.deleteUrl) { %}
-                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
-                    <i class="fa fa-trash"></i>
-                    <span>Delete</span>
-                </button>
-                <input type="checkbox" name="delete" value="1" class="toggle">
-            {% } else { %}
-                <button class="btn btn-warning cancel">
-                    <i class="fa fa-ban"></i>
-                    <span>Cancel</span>
-                </button>
-            {% } %}
-        </td>
-    </tr>
-{% } %}
+
 </script>
 
     {{--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>--}}
@@ -296,10 +263,12 @@
             $('#fileupload').fileupload({
                 url: url,
                 dataType: 'json',
-                autoUpload: false,
-                acceptFileTypes: /(\.|\/)(pdf)$/i,
+                Upload: false,
+                maxChunkSize: 2000000, // 3 MB
+                acceptFileTypes: /(\.|\/)(pdf|dwf)$/i,
                 uploadTemplateId: 'template-upload',
-                maxFileSize: 999000,
+                downloadTemplateId: null,
+                maxFileSize: 6000000,
                 // Enable image resizing, except for Android and Opera,
                 // which actually support image resizing, but fail to
                 // send Blob objects via XHR requests:
@@ -346,12 +315,17 @@
                         progress + '%'
                 );
             }).on('fileuploaddone', function (e, data) {
-                $.each(data.files, function (index) {
-                    var error = $('<span class="text-danger"/>').text('File upload failed.');
-                    $(data.context.children()[index])
-                            .append('<br>')
-                            .append(error);
-                    });
+                $.each(data.files, function (index, file) {
+                    var fileName = $('<td class=""/>').text('Added file: ' + file.name);
+                    var size = $('<td class=""/>').text('Size: ' + file.size);
+                    var message = $('<td style="color:green" class="fa fa-check fa-2x"/>').text(data.result.message);
+                            var node = $('<tr/>')
+                                    .append(fileName)
+                                    .append(size)
+                                    .append(message);
+                            node.appendTo('.files');
+                });
+
             }).on('fileuploadfail', function (e, data) {
                 $.each(data.files, function (index) {
                     var error = $('<span class="text-danger"/>').text('File upload failed.');
@@ -375,50 +349,4 @@
         };
 
     </script>
-
-
-
-
-    {{--<div class="col-md-12">--}}
-    {{--<!-- This is used as the file preview template -->--}}
-    {{--<hr>--}}
-    {{--<div class="col-md-6">--}}
-    {{--<div class="form-group">--}}
-    {{--<span class="preview"><img data-dz-thumbnail /></span>--}}
-    {{--</div>--}}
-    {{--<div class="form-group">--}}
-    {{--<p class="name" data-dz-name></p>--}}
-    {{--<strong class="error text-danger" data-dz-errormessage></strong>--}}
-    {{--</div>--}}
-    {{--<div class="form-group" id="filename_div">--}}
-    {{--<input id="file_name" name="file_name" type="text" class="fileInput form-control" placeholder="File Name" required>--}}
-    {{--</div>--}}
-    {{--<div class="form-group" id="floor_div">--}}
-    {{--{!! Form::select('floor', $floors, null, ['class' => 'form-control', 'id' => 'floor','required']) !!}--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="col-md-6">--}}
-    {{--<div class="form-group"></div>--}}
-    {{--<div class="form-group">--}}
-    {{--<p class="size" data-dz-size></p>--}}
-    {{--<div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">--}}
-    {{--<div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="form-group">--}}
-    {{--<button class="btn btn-primary start">--}}
-    {{--<i class="fa fa-upload"></i>--}}
-    {{--<span>Start</span>--}}
-    {{--</button>--}}
-    {{--<button data-dz-remove class="btn btn-warning cancel">--}}
-    {{--<i class="fa fa-ban"></i>--}}
-    {{--<span>Cancel</span>--}}
-    {{--</button>--}}
-    {{--<button data-dz-remove class="btn btn-danger delete">--}}
-    {{--<i class="fa fa-trash"></i>--}}
-    {{--<span>Delete</span>--}}
-    {{--</button>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
 @stop

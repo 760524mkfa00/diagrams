@@ -24,7 +24,7 @@ class PlanController extends Controller
         $file = Plan::fromFile($files, $request);
 
         Building::locatedAt($building_name,$street)->addFile($file);
-        return \Response::json(['success' => true, 'message' => 'Complete']);
+        return \Response::json(['success' => true, 'message' => ' File has been added.']);
 
     }
 

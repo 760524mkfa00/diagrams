@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Plan extends Model
 {
-    protected $fillable = ['floor_id', 'name', 'path', 'filename'];
+    protected $fillable = ['floor_id', 'name', 'path', 'filename', 'file_type'];
 
     protected $file;
 
@@ -45,9 +45,17 @@ class Plan extends Model
             'name' => $plan->fileName(),
             'filename' => $plan->nameOfFile(),
             'path' => $plan->filePath(),
-            'floor_id' => $plan->floorID()
+            'floor_id' => $plan->floorID(),
+            'file_type' => $plan->fileType()
         ]);
 
+    }
+
+    public function fileType()
+    {
+        $type = $this->file->getClientOriginalExtension();
+
+        return "{$type}";
     }
 
     public function nameOfFile()

@@ -42,6 +42,7 @@ class CreateBuildingsTable extends Migration
             $table->string('name', 40);
             $table->string('path');
             $table->string('filename', 40);
+            $table->string('file_type');
             $table->timestamps();
         });
 
