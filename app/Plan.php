@@ -75,7 +75,7 @@ class Plan extends Model
      */
     public function fileName()
     {
-        return $this->data->file_name;
+        return preg_replace('/\\.[^.\\s]{3,4}$/', '', $this->data->file_name);
     }
 
     /**
