@@ -10,7 +10,7 @@ class Building extends Model
 
     Public function plans()
     {
-        return $this->hasMany('Plans\Plan');
+        return $this->hasMany('Plans\Plan')->orderBy('file_type', 'desc')->orderBy('name', 'asc');
     }
 
     Public function pictures()

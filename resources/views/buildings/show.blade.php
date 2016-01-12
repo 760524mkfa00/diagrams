@@ -144,7 +144,7 @@
                             <th>File</th>
                             <th>File Name<br/><i span="small">(file extensions will be removed)</i></th>
                             <th>Floor/Location</th>
-                            <th>Processing</th>
+                            <th>Processing<br/><i span="small">(10MB Maximum file size)</i></th>
                             <th>Actions</th>
                         </thead>
                         <tbody class="files"></tbody></table>
@@ -163,6 +163,7 @@
 {% for (var i=0, file; file=o.files[i]; i++) { %}
     <tr class="template-upload fade">.
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
+    <input type="hidden" id="chunk" name="chunk" value="false">
         <td>
             <span class="preview"></span>
         </td>
@@ -275,11 +276,10 @@
                 url: url,
                 dataType: 'json',
                 Upload: false,
-                maxChunkSize: 2000000, // 3 MB
                 acceptFileTypes: /(\.|\/)(pdf|dwf)$/i,
                 uploadTemplateId: 'template-upload',
                 downloadTemplateId: null,
-                maxFileSize: 6000000,
+                maxFileSize: 10000000,
                 // Enable image resizing, except for Android and Opera,
                 // which actually support image resizing, but fail to
                 // send Blob objects via XHR requests:
@@ -347,6 +347,8 @@
                             .append('<br>')
                             .append(error);
                 });
+//            }) .on('fileuploadchunksend', function (e, data) {
+//                $('#chunk').val('true');
             }).prop('disabled', !$.support.fileInput)
                     .parent().addClass($.support.fileInput ? undefined : 'disabled');
         });
