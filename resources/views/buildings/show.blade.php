@@ -143,7 +143,8 @@
                             <th></th>
                             <th>File</th>
                             <th>File Name<br/><i span="small">(file extensions will be removed)</i></th>
-                            <th>Floor/Location</th>
+                            <th>Location</th>
+                            <th>Type</th>
                             <th>Processing<br/><i span="small">(10MB Maximum file size)</i></th>
                             <th>Actions</th>
                         </thead>
@@ -173,7 +174,7 @@
         </td>
         <td><input id="file_name" name="file_name" type="text" class="fileInput form-control" placeholder="File Name" value="{%=file.name%}" required></td>
         <td>{!! Form::select('floor', $floors, null, ['class' => 'form-control', 'id' => 'floor','required']) !!}</td>
-        <td>{!! Form::select('type', $floors, null, ['class' => 'form-control', 'id' => 'type','required']) !!}</td>
+        <td>{!! Form::select('type', $types, null, ['class' => 'form-control', 'id' => 'type','required']) !!}</td>
         <td>
             <p class="size">Processing...</p>
             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
