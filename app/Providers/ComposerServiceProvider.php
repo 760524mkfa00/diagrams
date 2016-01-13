@@ -24,5 +24,6 @@ class ComposerServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->make('view')->composer(['buildings.show'], 'Plans\Composers\FloorComposer');
+        $this->app->make('view')->composer(['buildings.show'], 'Plans\Composers\TypeComposer');
     }
 }
