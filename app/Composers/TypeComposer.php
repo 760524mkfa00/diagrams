@@ -18,7 +18,7 @@ class TypeComposer {
 
     public function compose($view)
     {
-        $view->with('types', $this->floor->listTypes());
+        $view->with('types', $this->type->listTypes());
     }
 
 }
