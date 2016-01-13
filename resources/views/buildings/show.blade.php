@@ -173,6 +173,7 @@
         </td>
         <td><input id="file_name" name="file_name" type="text" class="fileInput form-control" placeholder="File Name" value="{%=file.name%}" required></td>
         <td>{!! Form::select('floor', $floors, null, ['class' => 'form-control', 'id' => 'floor','required']) !!}</td>
+        <td>{!! Form::select('type', $floors, null, ['class' => 'form-control', 'id' => 'type','required']) !!}</td>
         <td>
             <p class="size">Processing...</p>
             <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>

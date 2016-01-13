@@ -33,6 +33,11 @@ class Plan extends Model
         return $this->belongsTo('Plans\Floor');
     }
 
+    Public function types()
+    {
+        return $this->belongsTo('Plans\Type');
+    }
+
 
     public static function fromFile(UploadedFile $file, $request)
     {
