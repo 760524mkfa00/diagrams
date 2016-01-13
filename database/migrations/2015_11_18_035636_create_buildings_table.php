@@ -33,12 +33,21 @@ class CreateBuildingsTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name')->unique();
+            $table->string('label')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('plans', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('building_id')->unsigned();
             $table->foreign('building_id')->references('id')->on('buildings')->onDelete('cascade');
             $table->integer('floor_id')->unsigned();
             $table->foreign('floor_id')->references('id')->on('floors')->onDelete('cascade');
+            $table->integer('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
             $table->string('name', 40);
             $table->string('path');
             $table->string('filename', 40);
