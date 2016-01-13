@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class Plan extends Model
 {
-    protected $fillable = ['floor_id', 'name', 'path', 'filename', 'file_type'];
+    protected $fillable = ['floor_id', 'name', 'path', 'filename', 'file_type', 'type_id'];
 
     protected $file;
 
