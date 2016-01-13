@@ -51,7 +51,8 @@ class Plan extends Model
             'filename' => $plan->nameOfFile(),
             'path' => $plan->filePath(),
             'floor_id' => $plan->floorID(),
-            'file_type' => $plan->fileType()
+            'file_type' => $plan->fileType(),
+            'type_id' => $plan->TypeID()
         ]);
 
     }
@@ -95,6 +96,11 @@ class Plan extends Model
     public function floorID()
     {
         return $this->data->floor;
+    }
+
+    public function typeID()
+    {
+        return $this->data->type;
     }
 
 

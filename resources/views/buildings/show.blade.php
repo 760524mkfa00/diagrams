@@ -44,6 +44,7 @@
                         @foreach($building->plans as $plan)
                             <tr>
                                 <td>{!! Form::select('floor', $floors, $plan->floor_id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
+                                <td>{!! Form::select('type', $types, $plan->type_id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
                                 <td>{{ $plan->name }}</td>
                                 @if($plan->file_type <> "pdf")
                                     <td style="color:blue"><i class="fa fa-pencil-square-o"></i> {{$plan->file_type}}</td>
