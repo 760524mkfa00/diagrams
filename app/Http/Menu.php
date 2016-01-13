@@ -8,6 +8,7 @@ Event::listen('build.menu', function(Plans\Events\menuRequested $event) {
         $event->add('buildings.create', 'New', URL::route('buildings.create'), 102, 'angle-right');
     }
     $event->add('floors', 'Floors', URL::route('floor.index'), 202, 'angle-right');
+    $event->add('types', 'Types', URL::route('type.index'), 302, 'angle-right');
 
     if (Gate::allows('edit_users'))
     {

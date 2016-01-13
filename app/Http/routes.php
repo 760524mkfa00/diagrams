@@ -44,7 +44,8 @@ $router->group(['middleware' => 'auth'], function() {
     //Floors
     Route::resource('floor', 'FloorsController');
 
-
+    //Types
+    Route::resource('type', 'TypesController');
 
 
 });
