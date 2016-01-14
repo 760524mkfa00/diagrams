@@ -6,7 +6,6 @@ use Plans\Picture;
 use Plans\Building;
 use Plans\Http\Requests;
 use Plans\AddPictureToBuilding;
-use Plans\Http\Controllers\Controller;
 use Plans\Http\Requests\AddPictureRequest;
 
 
@@ -27,6 +26,10 @@ class PictureController extends Controller
     }
 
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         Picture::findOrFail($id)->delete();

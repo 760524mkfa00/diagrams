@@ -33,9 +33,9 @@ class PlanController extends Controller
      */
     public function downloadFile($id)
     {
-        $test = Plan::findOrFail($id)->download();
+        $file = Plan::findOrFail($id)->download();
 
-        return response()->download($test->path, $test->name);
+        return response()->download($file->path, $file->name);
 
 
     }

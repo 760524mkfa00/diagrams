@@ -79,7 +79,7 @@ class UserController extends Controller {
 		}
 
 		\Session::flash('message', 'You do not have access to this profile!');
-		return redirect('home');
+		return redirect('buildings');
 
 	}
 

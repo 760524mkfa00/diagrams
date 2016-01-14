@@ -17,7 +17,7 @@ class TypesController extends Controller
 
     /**
      * FloorController constructor.
-     * @param FloorRepository $floor
+     * @param \Plans\Repositories\Type\TypeRepository $type
      */
     function __construct(TypeRepository $type)
     {
@@ -52,6 +52,7 @@ class TypesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  int  $id
+     * @param Request $request
      * @return Response
      */
     public function update($id, Request $request)
