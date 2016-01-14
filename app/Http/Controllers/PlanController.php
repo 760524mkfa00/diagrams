@@ -5,9 +5,8 @@ namespace Plans\Http\Controllers;
 use Plans\Plan;
 use Plans\Building;
 use Plans\Http\Requests;
-use Illuminate\Http\Request;
-use Plans\Http\Controllers\Controller;
 use Plans\Http\Requests\AddFileRequest;
+use Plans\Http\Requests\UpdateFileRequest;
 
 class PlanController extends Controller
 {
@@ -59,14 +58,12 @@ class PlanController extends Controller
      * Update plan.
      *
      * @param  int  $id
-     * @param \Illuminate\Http\Request $request
+     * @param \Plans\Http\Requests\UpdateFileRequest $request
      * @return Response
      */
 
-    public function update($id, Request $request)
+    public function update($id, UpdateFileRequest $request)
     {
-
-
         $type_id = $request->input('type_id');
         $floor_id = $request->input('floor_id');
         $name = $request->input('name');
