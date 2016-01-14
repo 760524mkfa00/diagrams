@@ -8,6 +8,8 @@
         <p></p>
     </div>
 
+
+
     <div class="row">
         <div class="col-md-6">
             <h2>{{ $building->building_name }} <a href="{{ route('editBuilding',[$building->building_name,  $building->street])  }}"><i class="fa fa-pencil-square"></i>
@@ -30,6 +32,8 @@
             @include('buildings._partials.uploader')
         </div>
     </div>
+
+
 @stop
 
 @section('footer')
