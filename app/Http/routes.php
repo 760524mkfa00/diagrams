@@ -42,10 +42,7 @@ $router->group(['middleware' => 'auth'], function() {
     Route::post('plan/{building_name}/{street}/file', ['as' => 'addFile', 'uses' => 'PlanController@store'] );
     Route::get('download/{id}', ['as'=> 'get.file', 'uses' => 'PlanController@downloadFile']);
     Route::delete('plan/{id}', ['as' => 'removeFile', 'uses' => 'PlanController@destroy']);
-
-    Route::post('plan/type', ['as' => 'updateType', 'uses' => 'PlanController@updateType']);
-    Route::post('plan/location', ['as' => 'updateLocation', 'uses' => 'PlanController@updateLocation']);
-
+    Route::post('plan/{id}/update', ['as' => 'plans.update', 'uses' => 'PlanController@update']);
     //Floors
     Route::resource('floor', 'FloorsController');
 

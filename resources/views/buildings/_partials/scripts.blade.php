@@ -170,28 +170,28 @@
 
     $(document).ready(function () {
 
-        var csrf_token = $('meta[name="csrf-token"]').attr('content');
         var info = $('.info');
         var flash = $('.flash_message');
 
-        $('.type').change(function (event) {
-            var id = $(this).attr('id'); //trying to alert id of the clicked row
-            var type_id = $(this).val();
-
+        //update the type drop down
+        $('.plan-update').submit(function (e) {
+            var postData = $(this).serializeArray();
+            var formURL = $(this).attr("action");
+            e.preventDefault(); //Prevent Default action.
 
             $.ajax({
                 dataType: "json",
                 type:   "POST",
-                url:    '{{ Route('updateType') }}',
-                data: {id: id, type_id: type_id, _token: csrf_token}
-            }).done(function(data){
-                info.hide().find('ul').empty();
-                flash.find('p').append(data.message);
-                flash.slideDown();
-                $(".alert").delay(2500).addClass("in").slideUp(2000);
-            }).fail(function() {
-                var errors = data.responseJSON;
-                $.each(errors, function(index,error){
+                url:    formURL,
+                data:   postData,
+                }).done(function(data){
+                    info.hide().find('ul').empty();
+                    flash.find('p').append(data.message);
+                    flash.slideDown();
+                    $(".alert").delay(2500).addClass("in").slideUp(2000);
+                }).fail(function() {
+                    var errors = data.responseJSON;
+                    $.each(errors, function(index,error){
                     info.find('ul').append('<li>'+error+'</li>');
                 });
                 info.slideDown();
@@ -199,37 +199,6 @@
             });
             info.hide().find('ul').empty();
             flash.find('p').empty();
-        });
-
-
-
-
-        $('.location').change(function (event) {
-            var id = $(this).attr('id'); //trying to alert id of the clicked row
-            var location_id = $(this).val();
-
-
-            $.ajax({
-                dataType: "json",
-                type:   "POST",
-                url:    '{{ Route('updateLocation') }}',
-                data: {id: id, floor_id: location_id, _token: csrf_token}
-            }).done(function(data){
-                info.hide().find('ul').empty();
-                flash.find('p').append(data.message);
-                flash.slideDown();
-                $(".alert").delay(2500).addClass("in").slideUp(2000);
-            }).fail(function() {
-                var errors = data.responseJSON;
-                $.each(errors, function(index,error){
-                    info.find('ul').append('<li>'+error+'</li>');
-                });
-                info.slideDown();
-                info.delay(2500).addClass("in").slideUp(3000);
-            });
-            info.hide().find('ul').empty();
-            flash.find('p').empty();
-
         });
     });
 

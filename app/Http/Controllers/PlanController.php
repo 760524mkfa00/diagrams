@@ -29,8 +29,7 @@ class PlanController extends Controller
     }
 
     /**
-     * @param $building_name
-     * @param $file_name
+     * @param $id
      * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
      */
     public function downloadFile($id)
@@ -42,6 +41,13 @@ class PlanController extends Controller
 
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return Response
+     */
+
     public function destroy($id)
     {
         Plan::findOrFail($id)->delete();
@@ -49,32 +55,30 @@ class PlanController extends Controller
         return back();
     }
 
+    /**
+     * Update plan.
+     *
+     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @return Response
+     */
 
-    public function updateType(Request $request)
+    public function update($id, Request $request)
     {
 
-        $id = $request->input('id');
+
         $type_id = $request->input('type_id');
+        $floor_id = $request->input('floor_id');
+        $name = $request->input('name');
 
         $type = Plan::find($id);
         $type->type_id = $type_id;
+        $type->floor_id = $floor_id;
+        $type->name = $name;
 
         $type->save();
 
-        return \Response::json(['success' => true, 'message' => 'Type has been updated.']);
+        return \Response::json(['success' => true, 'message' => 'Plan information has been updated.']);
     }
 
-    public function updateLocation(Request $request)
-    {
-
-        $id = $request->input('id');
-        $floor_id = $request->input('floor_id');
-
-        $floor = Plan::find($id);
-        $floor->floor_id = $floor_id;
-
-        $floor->save();
-
-        return \Response::json(['success' => true, 'message' => 'Location has been updated.']);
-    }
 }
