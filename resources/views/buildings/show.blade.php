@@ -1,5 +1,13 @@
 @extends('app')
 @section('content')
+
+    <div class="alert alert-info info" style="display:none;">
+        <ul></ul>
+    </div>
+    <div class="flash_message alert alert-info" style="display: none;">
+        <p></p>
+    </div>
+
     <div class="row">
         <div class="col-md-6">
             <h2>{{ $building->building_name }} <a href="{{ route('editBuilding',[$building->building_name,  $building->street])  }}"><i class="fa fa-pencil-square"></i>
@@ -45,7 +53,7 @@
                         </thead>
                         @foreach($building->plans as $plan)
                             <tr>
-                                <td>{!! Form::select('floor', $floors, $plan->floor_id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
+                                <td>{!! Form::select('floor', $floors, $plan->floor_id, ['class' => 'selectpicker form-control location', 'id' => $plan->id]) !!}</td>
                                 <td>{!! Form::select('type', $types, $plan->type_id, ['class' => 'selectpicker form-control type', 'id' => $plan->id]) !!}</td>
                                 <td>{{ $plan->name }}</td>
                                 @if($plan->file_type <> "pdf")
@@ -377,6 +385,8 @@
         $(document).ready(function () {
 
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
+            var info = $('.info');
+            var flash = $('.flash_message');
 
             $('.type').change(function (event) {
                 var id = $(this).attr('id'); //trying to alert id of the clicked row
@@ -389,10 +399,50 @@
                     url:    '/plan/type',
                     data: {id: id, type_id: type_id, _token: csrf_token}
                 }).done(function(data){
-                    response = jQuery.parseJSON(data);
-                    console.log(response);
+                    info.hide().find('ul').empty();
+                    flash.find('p').append(data.message);
+                    flash.slideDown();
+                    $(".alert").delay(2500).addClass("in").slideUp(2000);
+                }).fail(function() {
+                    var errors = data.responseJSON;
+                    $.each(errors, function(index,error){
+                        info.find('ul').append('<li>'+error+'</li>');
+                    });
+                    info.slideDown();
+                    info.delay(2500).addClass("in").slideUp(3000);
                 });
+                info.hide().find('ul').empty();
+                flash.find('p').empty();
+            });
 
+
+
+
+            $('.location').change(function (event) {
+                var id = $(this).attr('id'); //trying to alert id of the clicked row
+                var location_id = $(this).val();
+
+
+                $.ajax({
+                    dataType: "json",
+                    type:   "POST",
+                    url:    '/plan/location',
+                    data: {id: id, floor_id: location_id, _token: csrf_token}
+                }).done(function(data){
+                    info.hide().find('ul').empty();
+                    flash.find('p').append(data.message);
+                    flash.slideDown();
+                    $(".alert").delay(2500).addClass("in").slideUp(2000);
+                }).fail(function() {
+                    var errors = data.responseJSON;
+                    $.each(errors, function(index,error){
+                        info.find('ul').append('<li>'+error+'</li>');
+                    });
+                    info.slideDown();
+                    info.delay(2500).addClass("in").slideUp(3000);
+                });
+                info.hide().find('ul').empty();
+                flash.find('p').empty();
 
             });
         });

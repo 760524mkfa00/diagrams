@@ -71,6 +71,7 @@
 
 </head>
 <body onload="">
+
 	@include ('../_partials.flashMessage')
 	@include ('_partials.nav')
 

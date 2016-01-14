@@ -44,6 +44,8 @@ $router->group(['middleware' => 'auth'], function() {
     Route::delete('plan/{id}', ['as' => 'removeFile', 'uses' => 'PlanController@destroy']);
 
     Route::post('plan/type', ['as' => 'updateType', 'uses' => 'PlanController@updateType']);
+    Route::post('plan/location', ['as' => 'updateLocation', 'uses' => 'PlanController@updateLocation']);
+
     //Floors
     Route::resource('floor', 'FloorsController');
 

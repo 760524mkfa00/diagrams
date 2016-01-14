@@ -4,7 +4,8 @@ namespace Plans\Http\Controllers;
 
 use Plans\Plan;
 use Plans\Building;
-use Plans\Http\Requests\Request;
+use Plans\Http\Requests;
+use Illuminate\Http\Request;
 use Plans\Http\Controllers\Controller;
 use Plans\Http\Requests\AddFileRequest;
 
@@ -48,11 +49,32 @@ class PlanController extends Controller
         return back();
     }
 
+
     public function updateType(Request $request)
     {
 
-        return $request->all();
+        $id = $request->input('id');
+        $type_id = $request->input('type_id');
 
-        return \Response::json(['success' => true, 'message' => ' test is a success.']);
+        $type = Plan::find($id);
+        $type->type_id = $type_id;
+
+        $type->save();
+
+        return \Response::json(['success' => true, 'message' => 'Type has been updated.']);
+    }
+
+    public function updateLocation(Request $request)
+    {
+
+        $id = $request->input('id');
+        $floor_id = $request->input('floor_id');
+
+        $floor = Plan::find($id);
+        $floor->floor_id = $floor_id;
+
+        $floor->save();
+
+        return \Response::json(['success' => true, 'message' => 'Location has been updated.']);
     }
 }
