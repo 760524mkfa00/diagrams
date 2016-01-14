@@ -3,8 +3,6 @@
 namespace Plans\Http\Controllers;
 
 use Plans\Building;
-use Illuminate\Http\Request;
-use Plans\Http\Controllers\Controller;
 use Plans\Http\Requests\BuildingRequest;
 
 
@@ -32,14 +30,13 @@ class BuildingsController extends Controller
      */
     public function create()
     {
-
         return view('buildings.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Plans\Http\Requests\BuildingRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(BuildingRequest $request)
@@ -60,5 +57,38 @@ class BuildingsController extends Controller
 
         return view('buildings.show', compact('building'));
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $building_name
+     * @param  int  $street
+     * @param \Plans\Http\Requests\BuildingRequest
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($building_name, $street)
+    {
+
+       $data = Building::locatedAt($building_name,$street);
+
+        return view('buildings.edit', compact('data'));
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int  $id
+     * @param  \Plans\Http\Requests\BuildingRequest  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update($id, BuildingRequest $request)
+    {
+        Building::find($id)->update($request->all());
+
+        return Redirect('buildings');
+    }
+
+
 
 }

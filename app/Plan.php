@@ -100,7 +100,7 @@ class Plan extends Model
 
     public function typeID()
     {
-        return $this->data->type;
+        return $this->data->type ? $this->data->type : 0;
     }
 
 

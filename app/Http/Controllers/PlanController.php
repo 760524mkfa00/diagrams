@@ -4,7 +4,7 @@ namespace Plans\Http\Controllers;
 
 use Plans\Plan;
 use Plans\Building;
-use Plans\Http\Requests;
+use Plans\Http\Requests\Request;
 use Plans\Http\Controllers\Controller;
 use Plans\Http\Requests\AddFileRequest;
 
@@ -46,5 +46,13 @@ class PlanController extends Controller
         Plan::findOrFail($id)->delete();
 
         return back();
+    }
+
+    public function updateType(Request $request)
+    {
+
+        return $request->all();
+
+        return \Response::json(['success' => true, 'message' => ' test is a success.']);
     }
 }

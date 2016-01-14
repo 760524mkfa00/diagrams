@@ -2,7 +2,8 @@
 @section('content')
     <div class="row">
         <div class="col-md-6">
-            <h2>{{ $building->building_name }}</h2>
+            <h2>{{ $building->building_name }} <a href="{{ route('editBuilding',[$building->building_name,  $building->street])  }}"><i class="fa fa-pencil-square"></i>
+                </a></h2>
 
             <h3>{{ $building->street . ', ' . $building->postal }}</h3>
             <hr>
@@ -35,7 +36,8 @@
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>
-                        <th>Floor</th>
+                        <th>Location</th>
+                        <th>Type</th>
                         <th>File Name</th>
                         <th>File Type</th>
                         <th>File</th>
@@ -44,7 +46,7 @@
                         @foreach($building->plans as $plan)
                             <tr>
                                 <td>{!! Form::select('floor', $floors, $plan->floor_id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
-                                <td>{!! Form::select('type', $types, $plan->type_id, ['disabled', 'class' => 'selectpicker form-control']) !!}</td>
+                                <td>{!! Form::select('type', $types, $plan->type_id, ['class' => 'selectpicker form-control type', 'id' => $plan->id]) !!}</td>
                                 <td>{{ $plan->name }}</td>
                                 @if($plan->file_type <> "pdf")
                                     <td style="color:blue"><i class="fa fa-pencil-square-o"></i> {{$plan->file_type}}</td>
@@ -366,6 +368,35 @@
             maxFilesize: 2,
             acceptedFiles: '.jpg, .jpeg, .png, .bmp'
         };
+
+    </script>
+
+    <script>
+
+
+        $(document).ready(function () {
+
+            var csrf_token = $('meta[name="csrf-token"]').attr('content');
+
+            $('.type').change(function (event) {
+                var id = $(this).attr('id'); //trying to alert id of the clicked row
+                var type_id = $(this).val();
+
+
+                $.ajax({
+                    dataType: "json",
+                    type:   "POST",
+                    url:    '/plan/type',
+                    data: {id: id, type_id: type_id, _token: csrf_token}
+                }).done(function(data){
+                    response = jQuery.parseJSON(data);
+                    console.log(response);
+                });
+
+
+            });
+        });
+
 
     </script>
 @stop

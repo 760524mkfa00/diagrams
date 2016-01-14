@@ -31,8 +31,9 @@ $router->group(['middleware' => 'auth'], function() {
 
     //Building
     Route::resource('buildings', 'BuildingsController');
-    Route::get('buildings/{building_name}/{street}', ['as' => 'showBuilding', 'uses' => 'BuildingsController@show']);
 
+    Route::get('buildings/{building_name}/{street}', ['as' => 'showBuilding', 'uses' => 'BuildingsController@show']);
+    Route::get('buildings/{building_name}/{street}/edit', ['as' => 'editBuilding', 'uses' => 'BuildingsController@edit']);
     //Pictures
     Route::post('buildings/{building_name}/{street}/photos', ['as' => 'addPicture', 'uses' => 'PictureController@store'] );
     Route::delete('picture/{id}', ['as' => 'removePicture', 'uses' => 'PictureController@destroy']);
@@ -41,6 +42,8 @@ $router->group(['middleware' => 'auth'], function() {
     Route::post('plan/{building_name}/{street}/file', ['as' => 'addFile', 'uses' => 'PlanController@store'] );
     Route::get('download/{id}', ['as'=> 'get.file', 'uses' => 'PlanController@downloadFile']);
     Route::delete('plan/{id}', ['as' => 'removeFile', 'uses' => 'PlanController@destroy']);
+
+    Route::post('plan/type', ['as' => 'updateType', 'uses' => 'PlanController@updateType']);
     //Floors
     Route::resource('floor', 'FloorsController');
 

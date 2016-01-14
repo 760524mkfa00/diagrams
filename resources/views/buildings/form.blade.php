@@ -3,24 +3,24 @@
 {{--{{ csrf_field() }}--}}
 
 <div class="form-group">
-    <label for="building_name">Name:</label>
-    <input type="text" name="building_name" id="building_name" class="form-control" value="{{ old('building_name') }}" required>
+    {!! Form::label('building_name', 'Building Name:') !!}
+    {!! Form::text('building_name', NULL, array('class' => 'form-control', 'required')) !!}
 </div>
 <div class="form-group">
-    <label for="street">Street:</label>
-    <input type="text" name="street" id="street" class="form-control" value="{{ old('street') }}" required>
+    {!! Form::label('street', 'Street:') !!}
+    {!! Form::text('street', NULL, array('class' => 'form-control', 'required')) !!}
 </div>
 <div class="form-group">
-    <label for="town">Town:</label>
-    <input type="text" name="town" id="town" class="form-control" value="{{ old('town') }}" required>
+    {!! Form::label('town', 'Town:') !!}
+    {!! Form::text('town', NULL, array('class' => 'form-control', 'required')) !!}
 </div>
 <div class="form-group">
-    <label for="postal">Zip/Postal Code</label>
-    <input type="text" name="postal" id="postal" class="form-control" value="{{ old('postal') }}" required>
+    {!! Form::label('postal', 'Zip/Postal Code:') !!}
+    {!! Form::text('postal', NULL, array('class' => 'form-control', 'required')) !!}
 </div>
 <div class="form-group">
-    <label for="province">Province:</label>
-    <input type="text" name="province" id="province" class="form-control" value="{{ old('province') }}" required>
+    {!! Form::label('province', 'Province:') !!}
+    {!! Form::text('province', NULL, array('class' => 'form-control', 'required')) !!}
 </div>
 <div class="form-group">
     <label for="country">Country:</label>
@@ -31,19 +31,19 @@
     </select>
 </div>
 <div class="form-group">
-    <label for="telephone">Telephone:</label>
-    <input type="text" name="telephone" id="telephone" class="form-control" value="{{ old('telephone') }}" required>
+    {!! Form::label('telephone', 'Telephone:') !!}
+    {!! Form::text('telephone', NULL, array('class' => 'form-control', 'required')) !!}
 </div>
 <div class="form-group">
-    <label for="building_type">Building Type:</label>
-    <input type="text" name="building_type" id="building_type" class="form-control" value="{{ old('building_type') }}" required>
+    {!! Form::label('building_type', 'Building Type:') !!}
+    {!! Form::text('building_type', NULL, array('class' => 'form-control', 'required')) !!}
 </div>
 <hr>
 <div class="form-group">
-    <label for="description">Building Description:</label>
-            <textarea type="text" name="description" id="description" class="form-control" rows="10" required>{{ old('description') }}</textarea>
+    {!! Form::label('description', 'Building Description:') !!}
+    {!! Form::textarea('description', NULL, array('class' => 'form-control', 'required')) !!}
 </div>
 
 <div class="form-group">
-    <button type="submit" class="btn btn-default">Add Building</button>
+    {!! Form::submit($submitButtonText, array('class' => 'btn btn-primary')) !!}
 </div>

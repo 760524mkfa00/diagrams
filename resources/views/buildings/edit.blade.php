@@ -1,16 +1,15 @@
 @extends('app')
 @section('title', 'Add New Building')
 @section('content')
-    <h1>Add New Building</h1>
+    <h1>Update Building</h1>
     @can('create_building')
         <div class="row">
             {{--<form method="post" action="/buildings" enctype="multipart/form-data" class="col-md-6">--}}
-                {!! Form::open(
-                    array(
-                        'route' => 'buildings.store',
-                        'class' => 'form',
-                        'files' => true)) !!}
-                @include('buildings.form', ['submitButtonText' => 'Create Building'])
+            {!! Form::model($data,
+                    array('route' => ['buildings.update',$data->id], 'method' => 'PATCH', 'role' => 'form')) !!}
+                <input name="update" type="hidden" value="TRUE">
+                @include('buildings.form', ['submitButtonText' => 'Update Building'])
+
 
                 @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -21,8 +20,7 @@
                         </ul>
                     </div>
                 @endif
-
-            </form>
+            {!! Form::close() !!}
         </div>
     @else
         <p>You cannot add a building.</p>
