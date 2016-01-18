@@ -24,7 +24,9 @@
                        <span class="username">{{ Auth::user()->first_name ? Auth::user()->first_name . ' ' . Auth::user()->last_name : Auth::user()->email }}</span>
                        <b class="fa fa-caret-down small"></b></a>
                        <ul class="dropdown-menu">
-                           <li><a href="{{ URL::route('users.edit', Auth::user()->id) }}"><i class="fa fa-pencil"></i> Profile</a></li>
+                           @can('edit_file')
+                            <li><a href="{{ URL::route('users.edit', Auth::user()->id) }}"><i class="fa fa-pencil"></i> Profile</a></li>
+                           @endcan
                            <li class="divider"></li>
                            <li><a href="{{ URL::to('/auth/logout') }}"><i class="fa fa-sign-out"></i> Log Out</a></li>
                        </ul>

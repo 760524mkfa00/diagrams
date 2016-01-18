@@ -6,7 +6,9 @@
             <th>Location</th>
             <th>Type</th>
             <th>File Name</th>
-            <th>Update</th>
+            @can('edit_file')
+                <th>Update</th>
+            @endcan
             <th>File Type</th>
             <th>File</th>
             <th></th>

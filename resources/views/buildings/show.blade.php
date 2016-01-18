@@ -12,8 +12,11 @@
 
     <div class="row">
         <div class="col-md-6">
-            <h2>{{ $building->building_name }} <a href="{{ route('editBuilding',[$building->building_name,  $building->street])  }}"><i class="fa fa-pencil-square"></i>
-                </a></h2>
+            <h2>{{ $building->building_name }}
+                @can('edit_file')
+                    <a href="{{ route('editBuilding',[$building->building_name,  $building->street])  }}"><i class="fa fa-pencil-square"></i></a>
+                @endcan
+            </h2>
 
             <h3>{{ $building->street . ', ' . $building->postal }}</h3>
             <hr>
